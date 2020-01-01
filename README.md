@@ -1,2 +1,3 @@
 # xml-project
-xml file / object convertor
+a simple xml file / object convertor
+
