@@ -32,12 +32,14 @@ void XMLBase::load_xml_file(string file)
     }
 
     //var de lecture
+    XMLRoot * position = this;
+
     bool balise = false;
     bool nom_balise = false;
     bool atribue_balise = false;
     bool value_balise = false;
 
-    while(fread(&text,1,1,load_xml) ==1)                //lecture map
+    while(fread(&text,1,1,load_xml) ==1)                //lecture fichier + mapage xml
     {
         //condition
         if((text == '<') && (!balise))
@@ -49,19 +51,19 @@ void XMLBase::load_xml_file(string file)
         {
             if(balise)
             {
-                if(text!=' ')
+                if(text!=' ' && text != '>')
                 {
                     if(nom_balise)
                     {
-                        this->set_element((this->get_element())+text);
+                        position->set_element((position->get_element())+text);
                     }
                     if(atribue_balise)
                     {
-                        this->set_attribut(this->get_attribut(this->length_attribut())+text,this->length_attribut());
+                        position->set_attribut(position->get_attribut(position->length_attribut())+text,position->length_attribut());
                     }
                     if(value_balise)
                     {
-                        this->set_value(this->get_value(this->length_value())+text,this->length_value());
+                        position->set_value(position->get_value(position->length_value())+text,position->length_value());
                     }
                 }
                 if(text == ' ' && text != '>')
@@ -70,19 +72,19 @@ void XMLBase::load_xml_file(string file)
                     {
                         nom_balise = false;
                         atribue_balise = true;
-                        this->add_attribut("");
+                        position->add_attribut("");
                     }
                     if(atribue_balise)
                     {
                         atribue_balise = false;
                         value_balise = true;
-                        this->add_value("");
+                        position->add_value("");
                     }
                     if(value_balise)
                     {
                         value_balise = false;
                         atribue_balise = true;
-                        this->add_attribut("");
+                        position->add_attribut("");
                     }
                 }
                 if(text == '>')
