@@ -60,3 +60,8 @@ int XMLRoot::length_value()
 {
     return this->value.size();
 }
+
+XMLRoot * XMLRoot::get_parent()
+{
+    return this->parent;
+}

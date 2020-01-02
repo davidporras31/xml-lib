@@ -28,10 +28,13 @@ class XMLRoot
         string get_value(int id);
         int length_value();
 
+        XMLRoot * get_parent();
+
         vector<XMLRoot> root;
     protected:
 
     private:
+        XMLRoot * parent;
         string element;
         string text;
         vector<string> attribut;
