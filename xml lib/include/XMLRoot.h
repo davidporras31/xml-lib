@@ -29,6 +29,7 @@ class XMLRoot
         int length_value();
 
         XMLRoot * get_parent();
+        void set_parent(XMLRoot * new_parent);
 
         vector<XMLRoot> root;
     protected:

@@ -65,3 +65,8 @@ XMLRoot * XMLRoot::get_parent()
 {
     return this->parent;
 }
+
+void XMLRoot::set_parent(XMLRoot * new_parent)
+{
+    this->parent = new_parent;
+}

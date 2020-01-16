@@ -29,12 +29,15 @@
 1576579198 d:\desktop\projet\xml-project\xml lib\include\xmlbase.h
 	<XMLRoot.h>
 
-1577983558 d:\desktop\projet\xml-project\xml lib\include\xmlroot.h
+1579133277 d:\desktop\projet\xml-project\xml lib\include\xmlroot.h
 	<string>
 	<vector>
 
-1576602540 source:d:\desktop\projet\xml-project\xml lib\src\xmlbase.cpp
+1577989240 source:d:\desktop\projet\xml-project\xml lib\src\xmlbase.cpp
 	<stdio.h>
 	<string.h>
 	"XMLBase.h"
+
+1579133277 source:d:\desktop\projet\xml-project\xml lib\src\xmlroot.cpp
+	"XMLRoot.h"
 
