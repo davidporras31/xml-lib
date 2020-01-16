@@ -39,6 +39,7 @@ void XMLBase::load_xml_file(string file)
     bool atribue_balise = false;
     bool value_balise = false;
     bool racine = true;
+    bool slash = false;
 
     while(fread(&text,1,1,load_xml) ==1)                //lecture fichier + mapage xml
     {
@@ -55,13 +56,17 @@ void XMLBase::load_xml_file(string file)
             else
             {
                 XMLRoot * tmpxml = new XMLRoot();
-                position->root.push_back(tmpxml);
-                (position->root.back()).set_parent(position);
+                position->add_root(*tmpxml);
+                (position->get_root(position->length_root()))->set_parent(position);
                 position = tmpxml;
             }
         }
         else
         {
+            if(text == 0x47)
+            {
+                slash = true;
+            }
             if(balise)
             {
                 if(text!=' ' && text != '>')
@@ -103,11 +108,15 @@ void XMLBase::load_xml_file(string file)
                 if(text == '>')
                 {
                     balise = false;
+                    if(slash)
+                    {
+                        position = position->get_parent();
+                    }
                 }
             }
             else
             {
-                if(text != ' ')
+                if((text != 0x09)&&(text != '\n')&&(text != '\r'))
                 {
                     position->set_text(position->get_text()+text);
                 }

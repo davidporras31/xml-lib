@@ -10,6 +10,6 @@ int main()
     cout << "Hello world!" << endl;
     XMLBase worldmap;
     string chemain = "teste.xml";
-    worldmap.load_xml_file("coucou");
+    worldmap.load_xml_file(chemain);
     return 0;
 }

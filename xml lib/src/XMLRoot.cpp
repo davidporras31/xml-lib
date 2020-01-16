@@ -70,3 +70,19 @@ void XMLRoot::set_parent(XMLRoot * new_parent)
 {
     this->parent = new_parent;
 }
+void XMLRoot::add_root(XMLRoot val)
+{
+    this->root.push_back(val);
+}
+void XMLRoot::set_root(XMLRoot val,int id)
+{
+    this->root.at(id) = val;
+}
+XMLRoot * XMLRoot::get_root(int id)
+{
+    return &(this->root.at(id));
+}
+int XMLRoot::length_root()
+{
+    return this->root.size();
+}

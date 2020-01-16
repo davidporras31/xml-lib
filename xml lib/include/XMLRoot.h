@@ -31,10 +31,14 @@ class XMLRoot
         XMLRoot * get_parent();
         void set_parent(XMLRoot * new_parent);
 
-        vector<XMLRoot> root;
+        void add_root(XMLRoot val);
+        void set_root(XMLRoot val,int id);
+        XMLRoot * get_root(int id);
+        int length_root();
     protected:
 
     private:
+        vector<XMLRoot> root;
         XMLRoot * parent;
         string element;
         string text;
