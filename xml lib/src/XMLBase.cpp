@@ -118,7 +118,7 @@ void XMLBase::load_xml_file(string file)
             }
             else
             {
-                if((text != 0x09)&&(text != '\n')&&(text != '\r'))
+                if(text != 0x09)
                 {
                     position->set_text(position->get_text()+text);
                 }
