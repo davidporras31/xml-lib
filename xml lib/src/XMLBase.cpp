@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <iostream>
 
 #include "XMLBase.h"
 
@@ -43,6 +44,7 @@ void XMLBase::load_xml_file(string file)
 
     while(fread(&text,1,1,load_xml) ==1)                //lecture fichier + mapage xml
     {
+        cout<<text;
         //condition
         if((text == '<') && (!balise))
         {
@@ -57,7 +59,7 @@ void XMLBase::load_xml_file(string file)
             {
                 XMLRoot * tmpxml = new XMLRoot();
                 position->add_root(*tmpxml);
-                (position->get_root(position->length_root()))->set_parent(position);
+                (position->get_root(position->length_root()-1))->set_parent(position);
                 position = tmpxml;
             }
         }
@@ -77,11 +79,11 @@ void XMLBase::load_xml_file(string file)
                     }
                     if(atribue_balise)
                     {
-                        position->set_attribut(position->get_attribut(position->length_attribut())+text,position->length_attribut());
+                        position->set_attribut(position->get_attribut(position->length_attribut()-1)+text,position->length_attribut());
                     }
                     if(value_balise)
                     {
-                        position->set_value(position->get_value(position->length_value())+text,position->length_value());
+                        position->set_value(position->get_value(position->length_value()-1)+text,position->length_value());
                     }
                 }
                 if(text == ' ' && text != '>')

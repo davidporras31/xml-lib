@@ -33,9 +33,10 @@
 	<string>
 	<vector>
 
-1579210994 source:d:\desktop\projet\xml-project\xml lib\src\xmlbase.cpp
+1579245073 source:d:\desktop\projet\xml-project\xml lib\src\xmlbase.cpp
 	<stdio.h>
 	<string.h>
+	<iostream>
 	"XMLBase.h"
 
 1579209920 source:d:\desktop\projet\xml-project\xml lib\src\xmlroot.cpp
