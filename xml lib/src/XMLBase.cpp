@@ -79,11 +79,11 @@ void XMLBase::load_xml_file(string file)
                     }
                     if(atribue_balise)
                     {
-                        position->set_attribut(position->get_attribut(position->length_attribut()-1)+text,position->length_attribut());
+                        position->set_attribut(position->get_attribut(position->length_attribut()-1)+text,position->length_attribut()-1);
                     }
                     if(value_balise)
                     {
-                        position->set_value(position->get_value(position->length_value()-1)+text,position->length_value());
+                        position->set_value(position->get_value(position->length_value()-1)+text,position->length_value()-1);
                     }
                 }
                 if(text == ' ' && text != '>')
