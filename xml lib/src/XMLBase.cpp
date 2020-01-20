@@ -50,6 +50,8 @@ void XMLBase::load_xml_file(string file)
         {
             balise = true;
             nom_balise = true;
+            atribue_balise = false;
+            value_balise = false;
             if(racine)
             {
                 racine = false;
@@ -69,60 +71,68 @@ void XMLBase::load_xml_file(string file)
             {
                 slash = true;
             }
-            if(balise)
-            {
-                if(text!=' ' && text != '>')
-                {
-                    if(nom_balise)
-                    {
-                        position->set_element((position->get_element())+text);
-                    }
-                    if(atribue_balise)
-                    {
-                        position->set_attribut(position->get_attribut(position->length_attribut()-1)+text,position->length_attribut()-1);
-                    }
-                    if(value_balise)
-                    {
-                        position->set_value(position->get_value(position->length_value()-1)+text,position->length_value()-1);
-                    }
-                }
-                if(text == ' ' && text != '>')
-                {
-                    if(nom_balise)
-                    {
-                        nom_balise = false;
-                        atribue_balise = true;
-                        position->add_attribut("");
-                    }
-                    if(atribue_balise)
-                    {
-                        atribue_balise = false;
-                        value_balise = true;
-                        position->add_value("");
-                    }
-                    if(value_balise)
-                    {
-                        value_balise = false;
-                        atribue_balise = true;
-                        position->add_attribut("");
-                    }
-                }
-                if(text == '>')
-                {
-                    balise = false;
-                    if(slash)
-                    {
-                        position = position->get_parent();
-                    }
-                }
-            }
             else
             {
-                if(text != 0x09)
+                if(balise)
                 {
-                    position->set_text(position->get_text()+text);
+                    if(text!=' ' && text != '>' && text != '\"')
+                    {
+                        if(nom_balise)
+                        {
+                            position->set_element((position->get_element())+text);
+                        }
+                        if(atribue_balise)
+                        {
+                            position->set_attribut(position->get_attribut(position->length_attribut()-1)+text,position->length_attribut()-1);
+                        }
+                        if(value_balise)
+                        {
+                            position->set_value(position->get_value(position->length_value()-1)+text,position->length_value()-1);
+                        }
+                    }
+                    if(text == ' ' && text != '>')
+                    {
+                        if(nom_balise)
+                        {
+                            nom_balise = false;
+                            atribue_balise = true;
+                            position->add_attribut("");
+                        }
+                        if(value_balise)
+                        {
+                            value_balise = false;
+                            atribue_balise = true;
+                            position->add_attribut("");
+                        }
+                    }
+                    else
+                    {
+                        if(text == '=' && atribue_balise)
+                        {
+                            atribue_balise = false;
+                            value_balise = true;
+                            position->add_value("");
+
+                        }
+                    }
+                    if(text == '>')
+                    {
+                        balise = false;
+                        if(slash)
+                        {
+                            position = position->get_parent();
+                        }
+                    }
+                }
+                else
+                {
+                    if(text != 0x09)
+                    {
+                        position->set_text(position->get_text()+text);
+                    }
                 }
             }
+
         }
     }
     fclose(load_xml);
