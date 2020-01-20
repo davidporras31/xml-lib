@@ -27,7 +27,7 @@ void XMLBase::load_xml_file(string file)
     rewind(load_xml);
 
     char text;
-    while(text != '\n')                                 //on passe un linge
+    while(text != '\n')                                 //on passe une linge
     {
         fread(&text,1,1,load_xml);
     }
@@ -61,7 +61,7 @@ void XMLBase::load_xml_file(string file)
             {
                 XMLRoot * tmpxml = new XMLRoot();
                 position->add_root(*tmpxml);
-                (position->get_root(position->length_root()-1))->set_parent(position);
+                tmpxml->set_parent(position);
                 position = tmpxml;
             }
         }
