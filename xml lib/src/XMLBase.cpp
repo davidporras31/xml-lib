@@ -41,17 +41,15 @@ void XMLBase::load_xml_file(string file)
     bool value_balise = false;
     bool racine = true;
     bool slash = false;
+    bool chevron_open = false;
 
     while(fread(&text,1,1,load_xml) ==1)                //lecture fichier + mapage xml
     {
         cout<<text;
         //condition
-        if((text == '<') && (!balise))
+        if(text!='/' && chevron_open)
         {
-            balise = true;
-            nom_balise = true;
-            atribue_balise = false;
-            value_balise = false;
+            chevron_open = false;
             if(racine)
             {
                 racine = false;
@@ -59,15 +57,24 @@ void XMLBase::load_xml_file(string file)
             }
             else
             {
-                XMLRoot * tmpxml = new XMLRoot();
+                XMLRoot * tmpxml;
+                tmpxml = new XMLRoot();
                 position->add_root(*tmpxml);
-                tmpxml->set_parent(position);
-                position = tmpxml;
+                (position->get_root())->set_parent(position);
+                position = position->get_root();
             }
+        }
+        if((text == '<') && (!balise))
+        {
+            balise = true;
+            nom_balise = true;
+            atribue_balise = false;
+            value_balise = false;
+            chevron_open = true;
         }
         else
         {
-            if(text == 0x47)
+            if(text == '/')
             {
                 slash = true;
             }
@@ -121,6 +128,7 @@ void XMLBase::load_xml_file(string file)
                         if(slash)
                         {
                             position = position->get_parent();
+                            slash = false;
                         }
                     }
                 }

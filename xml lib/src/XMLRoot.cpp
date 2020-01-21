@@ -82,6 +82,10 @@ XMLRoot * XMLRoot::get_root(int id)
 {
     return &(this->root.at(id));
 }
+XMLRoot * XMLRoot::get_root()
+{
+    return &(this->root.back());
+}
 int XMLRoot::length_root()
 {
     return this->root.size();

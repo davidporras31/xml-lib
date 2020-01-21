@@ -34,6 +34,7 @@ class XMLRoot
         void add_root(XMLRoot val);
         void set_root(XMLRoot val,int id);
         XMLRoot * get_root(int id);
+        XMLRoot * get_root();
         int length_root();
     protected:
 

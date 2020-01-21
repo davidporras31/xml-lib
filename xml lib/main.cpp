@@ -9,8 +9,8 @@ int main()
 {
     cout << "Hello world!" << endl;
     XMLBase worldmap;
-    string chemain = "teste.xml";
+    string chemain = "teste1.xml";
     worldmap.load_xml_file(chemain);
-    cout << (worldmap.get_root(0))->get_element();
+    cout << (worldmap.get_root(1))->get_element();
     return 0;
 }
