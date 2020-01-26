@@ -20,7 +20,7 @@
 1576579198 d:\desktop\projet\sfml-game\xml lib\include\xmlbase.h
 	<XMLRoot.h>
 
-1579641139 source:d:\desktop\projet\xml-project\xml lib\main.cpp
+1580080318 source:d:\desktop\projet\xml-project\xml lib\main.cpp
 	<iostream>
 	<stdio.h>
 	<string>
@@ -33,7 +33,7 @@
 	<string>
 	<vector>
 
-1579641806 source:d:\desktop\projet\xml-project\xml lib\src\xmlbase.cpp
+1580079575 source:d:\desktop\projet\xml-project\xml lib\src\xmlbase.cpp
 	<stdio.h>
 	<string.h>
 	<iostream>

@@ -49,7 +49,6 @@ void XMLBase::load_xml_file(string file)
         //condition
         if(text!='/' && chevron_open)
         {
-            chevron_open = false;
             if(racine)
             {
                 racine = false;
@@ -64,6 +63,7 @@ void XMLBase::load_xml_file(string file)
                 position = position->get_root();
             }
         }
+        chevron_open = false;
         if((text == '<') && (!balise))
         {
             balise = true;
@@ -74,7 +74,7 @@ void XMLBase::load_xml_file(string file)
         }
         else
         {
-            if(text == '/')
+            if(text == '/' && !slash)
             {
                 slash = true;
             }
