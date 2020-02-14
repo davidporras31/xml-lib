@@ -10,6 +10,22 @@ XMLBase::XMLBase()
     :XMLRoot()
 {
     //ctor
+    this->set_space_number(4);
+}
+
+XMLBase::XMLBase(string file , int nb)
+    :XMLRoot()
+{
+    //ctor
+    this->set_space_number(nb);
+    this->load_xml_file(file);
+}
+XMLBase::XMLBase(string file)
+    :XMLRoot()
+{
+    //ctor
+    this->set_space_number(4);
+    this->load_xml_file(file);
 }
 
 XMLBase::~XMLBase()
@@ -149,12 +165,32 @@ void XMLBase::load_xml_file(string file)
         }
         else
         {
-            position->set_text(position->get_text()+text);
+            position->set_text(position->get_text()+text);  //a ajouté gestion tab avec nb_space_for_tab
         }
     }
     fclose(load_xml);
 }
-void XMLBase::save_xml_file(string file)
+void XMLBase::save_xml_file(string file) //work in progress
 {
+    int n = file.length();                      //convert string to char
+    char char_array[n + 1];
+    strcpy(char_array, file.c_str());
 
+    FILE* save_xml = NULL;                      //ouverture fichier
+    save_xml = fopen(char_array,"w");
+    rewind(save_xml);
+
+    char text;
+    char buffer[] = "<?xml version=\"1.0\"?>\n";
+    fwrite (buffer , sizeof(char), sizeof(buffer), save_xml);
+
+    fclose(save_xml);
+}
+void XMLBase::set_space_number(int nb)
+{
+    this->nb_space_for_tab = nb;
+}
+int XMLBase::get_space_number()
+{
+    return this->nb_space_for_tab;
 }
