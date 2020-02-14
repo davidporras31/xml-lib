@@ -45,110 +45,114 @@ void XMLBase::load_xml_file(string file)
 
     while(fread(&text,1,1,load_xml) ==1)                //lecture fichier + mapage xml
     {
+        returnRuntime:
+        if(position==0x0)
+        {
+            break;
+        }
         cout<<text;
         //condition
-        if(text!='/' && chevron_open)
+        if (chevron_open)
         {
-            if(racine)
-            {
-                racine = false;
-                position->set_parent(NULL);
-            }
-            else
-            {
-                XMLRoot * tmpxml;
-                tmpxml = new XMLRoot();
-                position->add_root(*tmpxml);
-                (position->get_root())->set_parent(position);
-                position = position->get_root();
-            }
-        }
-        chevron_open = false;
-        if((text == '<') && (!balise))
-        {
-            balise = true;
+            chevron_open = false;
             nom_balise = true;
             atribue_balise = false;
             value_balise = false;
-            chevron_open = true;
-        }
-        else
-        {
-            if(text == '/' && !slash)
+            balise = true;
+            if (text=='/')
             {
-                slash = true;
+                position = position->get_parent();
+                balise = false;
+                while(text!='>')
+                {
+                    fread(&text,1,1,load_xml);
+                    cout<<text;
+                }
+                fread(&text,1,1,load_xml);
+                goto returnRuntime;
             }
             else
             {
-                if(balise)
+                if(racine)
                 {
-                    if(text!=' ' && text != '>' && text != '\"')
-                    {
-                        if(nom_balise)
-                        {
-                            position->set_element((position->get_element())+text);
-                        }
-                        if(atribue_balise)
-                        {
-                            position->set_attribut(position->get_attribut(position->length_attribut()-1)+text,position->length_attribut()-1);
-                        }
-                        if(value_balise)
-                        {
-                            position->set_value(position->get_value(position->length_value()-1)+text,position->length_value()-1);
-                        }
-                    }
-                    if(text == ' ' && text != '>')
-                    {
-                        if(nom_balise)
-                        {
-                            nom_balise = false;
-                            atribue_balise = true;
-                            position->add_attribut("");
-                        }
-                        if(value_balise)
-                        {
-                            value_balise = false;
-                            atribue_balise = true;
-                            position->add_attribut("");
-                        }
-                    }
-                    else
-                    {
-                        if(text == '=' && atribue_balise)
-                        {
-                            atribue_balise = false;
-                            value_balise = true;
-                            position->add_value("");
-
-                        }
-                    }
-                    if(text == '>')
-                    {
-                        balise = false;
-                        if(slash)
-                        {
-                            position = position->get_parent();
-                            slash = false;
-                        }
-                    }
+                    racine = false;
+                    position->set_parent(NULL);
                 }
                 else
                 {
-                    if(text != 0x09)
-                    {
-                        position->set_text(position->get_text()+text);
-                    }
+                    XMLRoot * tmpxml;
+                    tmpxml = new XMLRoot();
+                    position->add_root(*tmpxml);
+                    (position->get_root())->set_parent(position);
+                    position = position->get_root();
                 }
             }
-
+        }
+        if (text=='<')
+        {
+            chevron_open = true;
+            slash = false;
+        }
+        if (text=='/')
+        {
+            slash = true;
+        }
+        if (text=='>')
+        {
+            balise = false;
+            if (slash)
+            {
+                position = position->get_parent();
+            }
+        }
+        if (balise)
+        {
+            if(text!=' ' && text != '\"' && text !='=')
+            {
+                if(nom_balise)
+                {
+                    position->set_element((position->get_element())+text);
+                }
+                if(atribue_balise)
+                {
+                    position->set_attribut(position->get_attribut(position->length_attribut()-1)+text,position->length_attribut()-1);
+                }
+                if(value_balise)
+                {
+                    position->set_value(position->get_value(position->length_value()-1)+text,position->length_value()-1);
+                }
+            }
+            if(text == ' ')
+            {
+                if(nom_balise)
+                {
+                    nom_balise = false;
+                    atribue_balise = true;
+                    position->add_attribut("");
+                }
+                if(value_balise)
+                {
+                    value_balise = false;
+                    atribue_balise = true;
+                    position->add_attribut("");
+                }
+            }
+            else
+            {
+                if(text == '=' && atribue_balise)
+                {
+                    atribue_balise = false;
+                    value_balise = true;
+                    position->add_value("");
+                }
+            }
+        }
+        else
+        {
+            position->set_text(position->get_text()+text);
         }
     }
     fclose(load_xml);
-
-
-
-
-
 }
 void XMLBase::save_xml_file(string file)
 {
