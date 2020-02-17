@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <iostream>
 
@@ -180,9 +181,55 @@ void XMLBase::save_xml_file(string file) //work in progress
     save_xml = fopen(char_array,"w");
     rewind(save_xml);
 
-    char text;
-    char buffer[] = "<?xml version=\"1.0\"?>\n";
-    fwrite (buffer , sizeof(char), sizeof(buffer), save_xml);
+    //création d'un fichier
+
+    XMLRoot * position = this;
+    string tmp;
+
+
+    //char text;
+    char debut[22] = "<?xml version=\"1.0\"?>";
+    fwrite(debut , sizeof(char), sizeof(debut)-1, save_xml);
+    char buffer = '\n';
+    fwrite(&buffer , sizeof(char), sizeof(buffer), save_xml);
+
+
+    buffer = '<';
+    fwrite(&buffer , sizeof(char), sizeof(buffer), save_xml);
+
+    tmp = position->get_element();
+    for(unsigned int i = 0 ; i < tmp.length(); i++)
+    {
+        fwrite(&tmp.at(i) , sizeof(char), sizeof(char), save_xml);
+    }
+
+    for(int i=0 ; i<position->length_attribut() ; i++)
+    {
+        buffer = ' ';
+        fwrite(&buffer , sizeof(char), sizeof(buffer), save_xml);
+        tmp = position->get_attribut(i);
+        for(unsigned int t = 0 ; t < tmp.length(); t++)
+        {
+            fwrite(&tmp.at(t) , sizeof(char), sizeof(char), save_xml);
+        }
+        buffer = '=';
+        fwrite(&buffer , sizeof(char), sizeof(buffer), save_xml);
+        buffer = '\"';
+        fwrite(&buffer , sizeof(char), sizeof(buffer), save_xml);
+        tmp = position->get_value(i);
+        for(unsigned int t = 0 ; t < tmp.length(); t++)
+        {
+            fwrite(&tmp.at(t) , sizeof(char), sizeof(char), save_xml);
+        }
+        buffer = '\"';
+        fwrite(&buffer , sizeof(char), sizeof(buffer), save_xml);
+    }
+
+
+    buffer = '>';
+    fwrite(&buffer , sizeof(char), sizeof(buffer), save_xml);
+    buffer = '\n';
+    fwrite(&buffer , sizeof(char), sizeof(buffer), save_xml);
 
     fclose(save_xml);
 }
