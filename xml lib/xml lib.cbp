@@ -36,9 +36,11 @@
 		</Compiler>
 		<Unit filename="include/XMLBase.h" />
 		<Unit filename="include/XMLRoot.h" />
+		<Unit filename="include/XMLUtility.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/XMLBase.cpp" />
 		<Unit filename="src/XMLRoot.cpp" />
+		<Unit filename="src/XMLUtility.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

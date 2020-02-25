@@ -11,21 +11,12 @@ XMLBase::XMLBase()
     :XMLRoot()
 {
     //ctor
-    this->set_space_number(4);
 }
 
-XMLBase::XMLBase(string file , int nb)
-    :XMLRoot()
-{
-    //ctor
-    this->set_space_number(nb);
-    this->load_xml_file(file);
-}
 XMLBase::XMLBase(string file)
     :XMLRoot()
 {
     //ctor
-    this->set_space_number(4);
     this->load_xml_file(file);
 }
 
@@ -33,6 +24,7 @@ XMLBase::~XMLBase()
 {
     //dtor
 }
+
 void XMLBase::load_xml_file(string file)
 {
     int n = file.length();                      //convert string to char
@@ -126,7 +118,7 @@ void XMLBase::load_xml_file(string file)
         {
             if(text!=' ' && text != '\"' && text !='=')
             {
-                if(nom_balise)
+                if(nom_balise && text!='/')
                 {
                     position->set_element((position->get_element())+text);
                 }
@@ -166,7 +158,10 @@ void XMLBase::load_xml_file(string file)
         }
         else
         {
-            position->set_text(position->get_text()+text);  //a ajouté gestion tab avec nb_space_for_tab
+            if(text!='<'&&text!='>'&&text!=0x09)
+            {
+                position->set_text(position->get_text()+text);  //a ajouté gestion tab avec nb_space_for_tab
+            }
         }
     }
     fclose(load_xml);
@@ -225,6 +220,35 @@ void XMLBase::save_xml_file(string file) //work in progress
         fwrite(&buffer , sizeof(char), sizeof(buffer), save_xml);
     }
 
+    tmp = position->get_text();
+    cout<<"|"<<tmp<<"|"<<tmp.length();
+    if(position->length_root() == 0 && tmp.length() == 0)
+    {
+        buffer = '/';
+        fwrite(&buffer , sizeof(char), sizeof(buffer), save_xml);
+        buffer = '>';
+        fwrite(&buffer , sizeof(char), sizeof(buffer), save_xml);
+        buffer = '\n';
+        fwrite(&buffer , sizeof(char), sizeof(buffer), save_xml);
+    }
+    else
+    {
+        if(position->length_root()!=0)
+        {
+            position = position->get_root(1);
+        }
+        else
+        {
+            XMLRoot * tmp_root = NULL;
+            int back_test = 0;
+            while(position != tmp_root)
+            {
+                back_test = back_test+1;
+                tmp_root = position->get_parent()->get_root(back_test);
+            }
+            position = position->get_parent()->get_root(back_test+1);
+        }
+    }
 
     buffer = '>';
     fwrite(&buffer , sizeof(char), sizeof(buffer), save_xml);
@@ -232,12 +256,4 @@ void XMLBase::save_xml_file(string file) //work in progress
     fwrite(&buffer , sizeof(char), sizeof(buffer), save_xml);
 
     fclose(save_xml);
-}
-void XMLBase::set_space_number(int nb)
-{
-    this->nb_space_for_tab = nb;
-}
-int XMLBase::get_space_number()
-{
-    return this->nb_space_for_tab;
 }
