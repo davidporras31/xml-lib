@@ -26,6 +26,22 @@ string XMLRoot::get_text()
 {
     return this->text;
 }
+int XMLRoot::length_text()
+{
+    return this->text.length();
+}
+int XMLRoot::length_text_without_wihtespace()
+{
+    int nb = 0;
+    for(int i;i<=this->text.length();i++)
+    {
+        if(this->text[i]!= 0x09)// && this->text[i]!= )
+        {
+            nb = nb + 1;
+        }
+    }
+    return nb;
+}
 
 void XMLRoot::add_attribut(string att)
 {

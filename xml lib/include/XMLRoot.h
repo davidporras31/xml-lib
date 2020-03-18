@@ -17,6 +17,8 @@ class XMLRoot
 
         void set_text(string tx);
         string get_text();
+        int length_text();
+        int length_text_without_witespace();
 
         void add_attribut(string att);
         void set_attribut(string att,int id);

@@ -11,8 +11,8 @@ int main()
     XMLBase worldmap;
     string chemain = "teste.xml";
     worldmap.load_xml_file(chemain);
-    cout << worldmap.get_root(1)->get_element();
-    cout << worldmap.get_root(1)->get_text().length();
-    worldmap.save_xml_file("save.teste");
+    cout << worldmap.get_root(0)->get_element();
+    cout << worldmap.get_text();
+    cout <<endl<< worldmap.length_text_without_witespace();
     return 0;
 }
