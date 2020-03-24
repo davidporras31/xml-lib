@@ -35,7 +35,7 @@ int XMLRoot::length_text_without_wihtespace()
     int nb = 0;
     for(int i;i<=this->text.length();i++)
     {
-        if(this->text[i]!= 0x09)// && this->text[i]!= )
+        if(this->text[i]!= '\t' && this->text[i]!= '\n' && this->text[i]!= '\r' && this->text[i]!= '\a' && this->text[i]!= '\b' && this->text[i]!= '\f' && this->text[i]!= '\v' && this->text[i]!= '\0'&& this->text[i]!= '\e')
         {
             nb = nb + 1;
         }

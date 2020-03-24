@@ -158,7 +158,7 @@ void XMLBase::load_xml_file(string file)
         }
         else
         {
-            if(text!='<'&&text!='>'&&text!=0x09)
+            if(text!='<'&&text!='>')
             {
                 position->set_text(position->get_text()+text);  //a ajouté gestion tab avec nb_space_for_tab
             }
@@ -188,72 +188,87 @@ void XMLBase::save_xml_file(string file) //work in progress
     char buffer = '\n';
     fwrite(&buffer , sizeof(char), sizeof(buffer), save_xml);
 
-
-    buffer = '<';
-    fwrite(&buffer , sizeof(char), sizeof(buffer), save_xml);
-
-    tmp = position->get_element();
-    for(unsigned int i = 0 ; i < tmp.length(); i++)
+    while(position != NULL)
     {
-        fwrite(&tmp.at(i) , sizeof(char), sizeof(char), save_xml);
-    }
-
-    for(int i=0 ; i<position->length_attribut() ; i++)
-    {
-        buffer = ' ';
+        buffer = '<';
         fwrite(&buffer , sizeof(char), sizeof(buffer), save_xml);
-        tmp = position->get_attribut(i);
-        for(unsigned int t = 0 ; t < tmp.length(); t++)
+
+        tmp = position->get_element();
+        for(unsigned int i = 0 ; i < tmp.length(); i++)
         {
-            fwrite(&tmp.at(t) , sizeof(char), sizeof(char), save_xml);
+            fwrite(&tmp.at(i) , sizeof(char), sizeof(char), save_xml);
         }
-        buffer = '=';
-        fwrite(&buffer , sizeof(char), sizeof(buffer), save_xml);
-        buffer = '\"';
-        fwrite(&buffer , sizeof(char), sizeof(buffer), save_xml);
-        tmp = position->get_value(i);
-        for(unsigned int t = 0 ; t < tmp.length(); t++)
-        {
-            fwrite(&tmp.at(t) , sizeof(char), sizeof(char), save_xml);
-        }
-        buffer = '\"';
-        fwrite(&buffer , sizeof(char), sizeof(buffer), save_xml);
-    }
 
-    tmp = position->get_text();
-    cout<<"|"<<tmp<<"|"<<tmp.length();
-    if(position->length_root() == 0 && tmp.length() == 0)
-    {
-        buffer = '/';
-        fwrite(&buffer , sizeof(char), sizeof(buffer), save_xml);
+        for(int i=0 ; i<position->length_attribut() ; i++)
+        {
+            buffer = ' ';
+            fwrite(&buffer , sizeof(char), sizeof(buffer), save_xml);
+            tmp = position->get_attribut(i);
+            for(unsigned int t = 0 ; t < tmp.length(); t++)
+            {
+                fwrite(&tmp.at(t) , sizeof(char), sizeof(char), save_xml);
+            }
+            buffer = '=';
+            fwrite(&buffer , sizeof(char), sizeof(buffer), save_xml);
+            buffer = '\"';
+            fwrite(&buffer , sizeof(char), sizeof(buffer), save_xml);
+            tmp = position->get_value(i);
+            for(unsigned int t = 0 ; t < tmp.length(); t++)
+            {
+                fwrite(&tmp.at(t) , sizeof(char), sizeof(char), save_xml);
+            }
+            buffer = '\"';
+            fwrite(&buffer , sizeof(char), sizeof(buffer), save_xml);
+        }
+
+        if(position->length_root() == 0 && position->length_text_without_wihtespace() == 0)
+        {
+            buffer = '/';
+            fwrite(&buffer , sizeof(char), sizeof(buffer), save_xml);
+            buffer = '>';
+            fwrite(&buffer , sizeof(char), sizeof(buffer), save_xml);
+            buffer = '\n';
+            fwrite(&buffer , sizeof(char), sizeof(buffer), save_xml);
+        }
+        else
+        {
+            if(position->length_root()!=0)
+            {
+                position = position->get_root(this->save_helper(position->get_parent(),position)+1);
+            }
+            else
+            {
+                XMLRoot * tmp_root = NULL;
+                int back_test = 0;
+                while(position != tmp_root)
+                {
+                    back_test = back_test+1;
+                    tmp_root = position->get_parent()->get_root(back_test);
+                }
+                position = position->get_parent()->get_root(back_test+1);
+            }
+        }
+
         buffer = '>';
         fwrite(&buffer , sizeof(char), sizeof(buffer), save_xml);
         buffer = '\n';
         fwrite(&buffer , sizeof(char), sizeof(buffer), save_xml);
     }
-    else
-    {
-        if(position->length_root()!=0)
-        {
-            position = position->get_root(1);
-        }
-        else
-        {
-            XMLRoot * tmp_root = NULL;
-            int back_test = 0;
-            while(position != tmp_root)
-            {
-                back_test = back_test+1;
-                tmp_root = position->get_parent()->get_root(back_test);
-            }
-            position = position->get_parent()->get_root(back_test+1);
-        }
-    }
-
-    buffer = '>';
-    fwrite(&buffer , sizeof(char), sizeof(buffer), save_xml);
-    buffer = '\n';
-    fwrite(&buffer , sizeof(char), sizeof(buffer), save_xml);
 
     fclose(save_xml);
+}
+
+
+
+int XMLBase::save_helper(XMLRoot * the_parent , XMLRoot * child)
+{
+    int i = 1;
+    cout<<i;
+    while(the_parent->get_root(i) != child)
+    {
+        i = i+1;
+        cout<<i;
+    }
+    cout<<i;
+    return i;
 }
