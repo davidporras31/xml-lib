@@ -7,7 +7,7 @@ int Search_by_atribut(XMLRoot * search_XML,string keyword)
     {
         if(search_XML->get_attribut(i-1) == keyword)
         {
-            return i;
+            return i-1;
         }
     }
     return 0;
@@ -18,7 +18,7 @@ int Search_by_value(XMLRoot * search_XML,string keyword)
     {
         if(search_XML->get_value(i-1) == keyword)
         {
-            return i;
+            return i-1;
         }
     }
     return 0;
