@@ -1,0 +1,55 @@
+# depslib dependency file v1.0
+1576597934 source:d:\desktop\projet\sfml-game\xml lib\main.cpp
+	<iostream>
+	<stdio.h>
+	<string>
+	"XMLBase.h"
+
+1576601936 source:d:\desktop\projet\sfml-game\xml lib\src\xmlroot.cpp
+	"XMLRoot.h"
+
+1576601936 d:\desktop\projet\sfml-game\xml lib\include\xmlroot.h
+	<string>
+	<vector>
+
+1576597919 source:d:\desktop\projet\sfml-game\xml lib\src\xmlbase.cpp
+	<stdio.h>
+	<string.h>
+	"XMLBase.h"
+
+1576579198 d:\desktop\projet\sfml-game\xml lib\include\xmlbase.h
+	<XMLRoot.h>
+
+1588873848 source:d:\desktop\projet\xml-project\xml lib\main.cpp
+	<iostream>
+	<stdio.h>
+	<string>
+	"XMLBase.h"
+	"XMLUtility.h"
+
+1584993156 d:\desktop\projet\xml-project\xml lib\include\xmlbase.h
+	<XMLRoot.h>
+
+1588013910 d:\desktop\projet\xml-project\xml lib\include\xmlroot.h
+	<string>
+	<vector>
+
+1584994206 source:d:\desktop\projet\xml-project\xml lib\src\xmlbase.cpp
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<iostream>
+	"XMLBase.h"
+
+1584989011 source:d:\desktop\projet\xml-project\xml lib\src\xmlroot.cpp
+	"XMLRoot.h"
+
+1588874685 source:d:\desktop\projet\xml-project\xml lib\src\xmlutility.cpp
+	"XMLUtility.h"
+
+1588874685 d:\desktop\projet\xml-project\xml lib\include\xmlutility.h
+	<vector>
+	<string>
+	"XMLBase.h"
+	"XMLRoot.h"
+
