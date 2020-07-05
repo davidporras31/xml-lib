@@ -2,10 +2,10 @@
 a simple xml file / object convertor
 
 ## task lists
--[ ]loading method
--[ ]saving method
--[X]shearch method
--[X]manipulation method
+- [ ] loading method
+- [ ] saving method
+- [X] shearch method
+- [X] manipulation method
 
 ## version
 alfa 0.2:
