@@ -1,6 +1,9 @@
 # xml-project
 a simple xml file / object convertor
 
+## documentation
+[documentation access](docs/index.md)
+
 ## task lists
 - [ ] loading method
 - [ ] saving method
