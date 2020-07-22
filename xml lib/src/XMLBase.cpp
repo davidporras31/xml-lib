@@ -5,6 +5,12 @@
 
 #include "XMLBase.h"
 
+#ifdef DEBUG
+    #define print(text) cout << text ;
+#else
+    #define print(text) //
+#endif // DEBUG
+
 using namespace std;
 
 XMLBase::XMLBase()
@@ -59,7 +65,7 @@ void XMLBase::load_xml_file(string file)
         {
             break;
         }
-        cout<<text;
+        print(text)
         //condition
         if (chevron_open)
         {
@@ -75,7 +81,7 @@ void XMLBase::load_xml_file(string file)
                 while(text!='>')
                 {
                     fread(&text,1,1,load_xml);
-                    cout<<text;
+                    print(text)
                 }
                 fread(&text,1,1,load_xml);
                 goto returnRuntime;
@@ -263,12 +269,12 @@ void XMLBase::save_xml_file(string file) //work in progress
 int XMLBase::save_helper(XMLRoot * the_parent , XMLRoot * child)
 {
     int i = 1;
-    cout<<i;
+    print(i)
     while(the_parent->get_root(i) != child)
     {
         i = i+1;
-        cout<<i;
+        print(i)
     }
-    cout<<i;
+    print(i)
     return i;
 }
