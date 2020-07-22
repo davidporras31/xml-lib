@@ -2,7 +2,7 @@
 a simple xml file / object convertor
 
 ## documentation
-[documentation access](docs/index.md)
+[documentation access](docs/index.html)
 
 ## task lists
 - [ ] loading method
