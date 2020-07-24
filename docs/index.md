@@ -1,3 +1,3 @@
-[XMLBase](docs/XMLBase/loader.md)
-[XMLRoot](docs/XMLRoot/manipulate.md)
-[XMLUtility](docs/XMLUtility/search.md)
+[XMLBase](XMLBase/loader.md)
+[XMLRoot](XMLRoot/manipulate.md)
+[XMLUtility](XMLUtility/search.md)
