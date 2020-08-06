@@ -14,7 +14,7 @@ int Search_by_atribut(XMLRoot * search_XML,string keyword)
 }
 int Search_by_value(XMLRoot * search_XML,string keyword)
 {
-    for(int i = 1; i <= search_XML->length_root(); i++)
+    for(int i = 1; i <= search_XML->length_child(); i++)
     {
         if(search_XML->get_value(i-1) == keyword)
         {
@@ -26,11 +26,11 @@ int Search_by_value(XMLRoot * search_XML,string keyword)
 bool Search_by_element(XMLRoot * search_XML,vector<XMLRoot *> &return_XML,string keyword)
 {
     bool return_value = false;
-    for(int i = 1; i <= search_XML->length_root(); i++)
+    for(int i = 1; i <= search_XML->length_child(); i++)
     {
-        if(search_XML->get_root(i-1)->get_element() == keyword)
+        if(search_XML->get_child(i-1)->get_tag_name() == keyword)
         {
-            return_XML.push_back(search_XML->get_root(i-1));
+            return_XML.push_back(search_XML->get_child(i-1));
             return_value = true;
         }
     }

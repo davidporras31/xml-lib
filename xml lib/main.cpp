@@ -15,7 +15,7 @@ int main()
 
     XMLBase worldmap;
     string chemain = "teste.xml";
-    cout << "ouverture teste.xml" << endl;
+    cout << "ouverture de "<< chemain << endl;
     worldmap.load_xml_file(chemain);
 
     /*
@@ -30,12 +30,12 @@ int main()
     vector<XMLRoot *> return_query;
     if(Search_by_element(&worldmap,return_query,"cube"))
     {
-        cout << "query : " <<return_query.at(1)->get_element()<< "\t" << "nb return : " << return_query.size() << endl;
+        cout << "query : " <<return_query.at(1)->get_tag_name()<< "\t" << "nb return : " << return_query.size() << endl;
     }
 
-    /*
+
     //worldmap.save_xml_file("save.xml");
-    */
+
 
     return 0;
 }

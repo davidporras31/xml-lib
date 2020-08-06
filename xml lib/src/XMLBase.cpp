@@ -97,9 +97,9 @@ void XMLBase::load_xml_file(string file)
                 {
                     XMLRoot * tmpxml;
                     tmpxml = new XMLRoot();
-                    position->add_root(*tmpxml);
-                    (position->get_root())->set_parent(position);
-                    position = position->get_root();
+                    position->add_child(*tmpxml);
+                    (position->get_child())->set_parent(position);
+                    position = position->get_child();
                 }
             }
         }
@@ -126,7 +126,7 @@ void XMLBase::load_xml_file(string file)
             {
                 if(nom_balise && text!='/')
                 {
-                    position->set_element((position->get_element())+text);
+                    position->set_tag_name((position->get_tag_name())+text);
                 }
                 if(atribue_balise)
                 {
@@ -199,7 +199,7 @@ void XMLBase::save_xml_file(string file) //work in progress
         buffer = '<';
         fwrite(&buffer , sizeof(char), sizeof(buffer), save_xml);
 
-        tmp = position->get_element();
+        tmp = position->get_tag_name();
         for(unsigned int i = 0 ; i < tmp.length(); i++)
         {
             fwrite(&tmp.at(i) , sizeof(char), sizeof(char), save_xml);
@@ -227,7 +227,7 @@ void XMLBase::save_xml_file(string file) //work in progress
             fwrite(&buffer , sizeof(char), sizeof(buffer), save_xml);
         }
 
-        if(position->length_root() == 0 && position->length_text_without_wihtespace() == 0)
+        if(position->length_child() == 0 && position->length_text_without_wihtespace() == 0)
         {
             buffer = '/';
             fwrite(&buffer , sizeof(char), sizeof(buffer), save_xml);
@@ -238,9 +238,9 @@ void XMLBase::save_xml_file(string file) //work in progress
         }
         else
         {
-            if(position->length_root()!=0)
+            if(position->length_child()!=0)
             {
-                position = position->get_root(this->save_helper(position->get_parent(),position)+1);
+                position = position->get_child(this->save_helper(position->get_parent(),position)+1);
             }
             else
             {
@@ -249,9 +249,9 @@ void XMLBase::save_xml_file(string file) //work in progress
                 while(position != tmp_root)
                 {
                     back_test = back_test+1;
-                    tmp_root = position->get_parent()->get_root(back_test);
+                    tmp_root = position->get_parent()->get_child(back_test);
                 }
-                position = position->get_parent()->get_root(back_test+1);
+                position = position->get_parent()->get_child(back_test+1);
             }
         }
 
@@ -270,7 +270,7 @@ int XMLBase::save_helper(XMLRoot * the_parent , XMLRoot * child)
 {
     int i = 1;
     print(i)
-    while(the_parent->get_root(i) != child)
+    while(the_parent->get_child(i) != child)
     {
         i = i+1;
         print(i)

@@ -9,13 +9,13 @@ XMLRoot::~XMLRoot()
 {
     //dtor
 }
-void XMLRoot::set_element(string el)
+void XMLRoot::set_tag_name(string el)
 {
-    this->element = el;
+    this->tag_name = el;
 }
-string XMLRoot::get_element()
+string XMLRoot::get_tag_name()
 {
-    return this->element;
+    return this->tag_name;
 }
 
 void XMLRoot::set_text(string tx)
@@ -86,23 +86,23 @@ void XMLRoot::set_parent(XMLRoot * new_parent)
 {
     this->parent = new_parent;
 }
-void XMLRoot::add_root(XMLRoot val)
+void XMLRoot::add_child(XMLRoot new_child)
 {
-    this->root.push_back(val);
+    this->child.push_back(new_child);
 }
-void XMLRoot::set_root(XMLRoot val,int id)
+void XMLRoot::set_child(XMLRoot new_child,int id)
 {
-    this->root.at(id) = val;
+    this->child.at(id) = new_child;
 }
-XMLRoot * XMLRoot::get_root(int id)
+XMLRoot * XMLRoot::get_child(int id)
 {
-    return &(this->root.at(id));
+    return &(this->child.at(id));
 }
-XMLRoot * XMLRoot::get_root()
+XMLRoot * XMLRoot::get_child()
 {
-    return &(this->root.back());
+    return &(this->child.back());
 }
-int XMLRoot::length_root()
+int XMLRoot::length_child()
 {
-    return this->root.size();
+    return this->child.size();
 }

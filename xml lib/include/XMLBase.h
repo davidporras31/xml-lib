@@ -1,8 +1,8 @@
 //********************************************************
-// author D PORRAS
+// author David PORRAS
 // date : 31/11/2019
 // file: XMLBase.h
-// base class for modify XML file
+// base class for save and load XML file
 //********************************************************
 #ifndef XMLBASE_H
 #define XMLBASE_H

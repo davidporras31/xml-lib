@@ -32,6 +32,7 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
+			<Add option="-std=c++11" />
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="include/XMLBase.h" />
@@ -41,10 +42,6 @@
 		<Unit filename="src/XMLBase.cpp" />
 		<Unit filename="src/XMLRoot.cpp" />
 		<Unit filename="src/XMLUtility.cpp" />
-		<Extensions>
-			<code_completion />
-			<envvars />
-			<debugger />
-		</Extensions>
+		<Extensions />
 	</Project>
 </CodeBlocks_project_file>
