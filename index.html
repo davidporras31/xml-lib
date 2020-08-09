@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>hello</title>
+	<meta charset="utf-8"/>
+	<link rel="stylesheet" type="text/css" href="./docs/style.css"/>
+	<script type="text/javascript">
+		function load(){
+			var a=document.getElementById("article").offsetHeight ;
+			var b=document.getElementById("navigation").offsetHeight ;
+			if (a<b) {
+				document.getElementById("content").style.height = b + "px";
+			}
+			else{
+				document.getElementById("content").style.height = a + "px";
+			}
+			document.getElementById("article").style.width = document.getElementById("article").offsetWidth - 10 + "px";
+			document.getElementById("article").style.padding = 5 + "px";
+			window.addEventListener('resize', resize);
+		}
+		function resize(){
+			document.getElementById("article").style.width = document.getElementById("content").offsetWidth * 0.8 + "px";
+			document.getElementById("navigation").style.width = document.getElementById("content").offsetWidth * 0.19 + "px";
+			load();
+		}
+		function bouton(sender){
+			var list_collapsible = document.getElementsByClassName("collapsible");
+			var list_content = document.getElementsByClassName("content");
+			var t = 0;
+			for (var i = 0; i < list_collapsible.length; i++) {
+				if(list_collapsible[i] == sender){
+					t = i;
+				}
+			}
+			console.log(t);
+			if (list_content[t].style.display === "block") {
+			      list_content[t].style.display = "none";
+			    } else {
+			      list_content[t].style.display = "block";
+			    }
+		}
+	</script>
+</head>
+<body onload="load()">
+	<header>
+		<img src="" alt="logo" class="logo">
+		header
+	</header>
+	<div id="content">
+		<nav id="navigation">
+			<button type="button" class="collapsible" onclick="bouton(this)">example</button>
+			<div class="content">
+			  <ul>
+			  	<li>
+			  		load file
+			  	</li>
+			  	<li>
+			  		save file
+			  	</li>
+			  	<li>
+			  		make XML
+			  	</li>
+			  	<li>
+			  		Search
+			  	</li>
+			  </ul>
+			</div>
+			<button type="button" class="collapsible" onclick="bouton(this)">XMLBase</button>
+			<div class="content">
+			  <ul>
+			  	<li>
+			  		load_xml_file
+			  	</li>
+			  	<li>
+			  		save_xml_file
+			  	</li>
+			  </ul>
+			</div>
+			<button type="button" class="collapsible" onclick="bouton(this)">XMLRoot</button>
+			<div class="content">
+			  <ul>
+			  	<li>
+			  		set_element
+			  	</li>
+			  	<li>
+			        get_element
+			  	</li>
+			  	<li>
+			        set_text
+			  	</li>
+			  	<li>
+			        get_text
+			  	</li>
+			  	<li>
+			        length_text
+			  	</li>
+			  	<li>
+			        length_text_without_wihtespace
+			  	</li>
+			  	<li>
+			        add_attribut
+			  	</li>
+			  	<li>
+			        set_attribut
+			  	</li>
+			  	<li>
+			        get_attribut
+			  	</li>
+			  	<li>
+			        length_attribut
+			  	</li>
+			  	<li>
+			        add_value
+			  	</li>
+			  	<li>
+			        set_value
+			  	</li>
+			  	<li>
+			        get_value
+			  	</li>
+			  	<li>
+			        length_value
+			  	</li>
+			  	<li>
+			        get_parent
+			  	</li>
+			  	<li>
+			        set_parent
+			  	</li>
+			  	<li>
+			        add_root
+			  	</li>
+			  	<li>
+			        set_root
+			  	</li>
+			  	<li>
+			        get_root
+			  	</li>
+			  	<li>
+			        length_root
+			  	</li>
+			  </ul>
+			</div>
+			<button type="button" class="collapsible" onclick="bouton(this)">XMLUtility</button>
+			<div class="content">
+			  <ul>
+			  	<li>
+			  		Search_by_atribut
+			  	</li>
+			  	<li>
+			  		Search_by_element
+			  	</li>
+			  </ul>
+			</div>
+		</nav>
+		<article id="article">
+			in consrtruct
+		</article>
+	</div>
+	<footer>
+		<center>
+			Site maked by David PORRAS
+		</center>
+	</footer>
+</body>
+</html>
