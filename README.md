@@ -1,4 +1,4 @@
-# xml-project
+# xml-lib
 a simple xml file / object convertor
 
 ## documentation
