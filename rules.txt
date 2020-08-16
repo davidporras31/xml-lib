@@ -1,0 +1,1 @@
+/script/location/index/@./docs/main.js@/stylesheet/location/index/@./docs/style.css@/logo/location/index/@./docs/img/logo.png@/file/location/index/@docs/@/script/location/other/@../main.js@/stylesheet/location/other/@../style.css@/logo/location/other/@../img/logo.png@/file/location/other/@../@/main/location/index/@./@/main/location/other/@./../../index.html
