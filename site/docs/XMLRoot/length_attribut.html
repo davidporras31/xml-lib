@@ -5,6 +5,10 @@
 	<meta charset="utf-8"/>
 	<link rel="stylesheet" type="text/css" href="/stylesheet/location/other/"/>
 	<script src="/script/location/other/" type="text/javascript"></script>
+
+	<link rel="stylesheet" href="../styles/vs2015.css">
+	<script src="../highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
 </head>
 <body onload="load()">
 	<header>
@@ -15,7 +19,7 @@
 		<nav id="navigation">
 			<button type="button" class="collapsible" onclick="bouton(this)">example</button>
 			<div class="content">
-			  <ul>
+			  <ul class="links">
 			  	<li>
 			  		<a href="/file/location/other/example/load.html">load file</a>
 			  	</li>
@@ -32,7 +36,7 @@
 			</div>
 			<button type="button" class="collapsible" onclick="bouton(this)">XMLBase</button>
 			<div class="content">
-			  <ul>
+			  <ul class="links">
 			  	<li>
 			  		<a href="/file/location/other/XMLBase/XMLBase.html">XMLBase</a>
 			  	</li>
@@ -46,7 +50,7 @@
 			</div>
 			<button type="button" class="collapsible" onclick="bouton(this)">XMLRoot</button>
 			<div class="content">
-			  <ul>
+			  <ul class="links">
 			  	<li>
 			  		<a href="/file/location/other/XMLRoot/XMLRoot.html">XMLRoot</a>
 			  	</li>
@@ -114,7 +118,7 @@
 			</div>
 			<button type="button" class="collapsible" onclick="bouton(this)">XMLUtility</button>
 			<div class="content">
-			  <ul>
+			  <ul class="links">
 			  	<li>
 			  		<a href="/file/location/other/XMLUtility/Search_by_atribut.html">Search_by_atribut</a>
 			  	</li>

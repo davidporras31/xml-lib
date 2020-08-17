@@ -1,1 +1,72 @@
-/script/location/index/@./docs/main.js@/stylesheet/location/index/@./docs/style.css@/logo/location/index/@./docs/img/logo.png@/file/location/index/@docs/@/script/location/other/@../main.js@/stylesheet/location/other/@../style.css@/logo/location/other/@../img/logo.png@/file/location/other/@../@/main/location/index/@./@/main/location/other/@./../../index.html
+/script/location/index/@./docs/main.js@/stylesheet/location/index/@./docs/style.css@/logo/location/index/@./docs/img/logo.png@/file/location/index/@docs/@/script/location/other/@../main.js@/stylesheet/location/other/@../style.css@/logo/location/other/@../img/logo.png@/file/location/other/@../@/main/location/index/@./index.html@/main/location/other/@./../../index.html@/index/article/@<p>
+				XML-lib is a simple xml file to object convertor for c++ application, XML-lib use any DOM for interprate XML file.<br><br>
+				XML-lib is split in 3 part :<br>
+				<ul>
+					<li>XMLRoot for manipulate XML data</li>
+					<li>XMLBase for save and load data from XML file</li>
+					<li>XMLUtility for search in data</li>
+				</ul>
+				<br>
+				On this web site you find all documentation and example about the librarie.<br><br><br>
+				curent librerie version : alfa 0.2<br>
+				change log:<br>
+				<ul>
+					<li>add all shearch method and manipulation method</li>
+					<li>add alfa loading method(some bug in loading)</li>
+					<li>add pre alpha saving method (currently not working)</li>
+				</ul>
+				issue:<br>
+				<ul>
+					<li>in loading method when method scan a orphan tag, the last atribut value adds "/"</li>
+					<li>in loading method when method scan a atribut value with space, it reacts by cutting the value in half</li>
+				</ul>
+			</p>@/Search_by_atribut/article/@<p>
+				This is a function search the same atribut name of keyword and return place of atribut in search_XML.<br>
+				it&#039s use for geting value in data<br><br>
+
+				function:<br>
+				<code>int Search_by_atribut(XMLRoot * search_XML&#44string keyword);</code>
+
+				parameter:
+				<ul>
+					<li>search_XML one XMLRoot</li>
+					<li>keyword the searched name of atribut</li>
+				</ul>
+				return:
+				<ul>
+					<li>the atribut position</li>
+				</ul>
+				<pre><code>
+					XMLRoot test();<br>
+					test.add_attribut(&quotkey&quot);<br>
+					test.add_value(&quot2&quot);<br>
+
+					int position = Search_by_atribut(test&#44&quotkey&quot);	//return the position of atribut &quotkey&quot here it&#039s 0<br>
+					cout << test.get_value(position);		//return the value of atribut &quotkey&quot here it&#039s &quot2&quot<br>
+				</code></pre>
+			</p>@/Search_by_element/article/@<p>
+				This is a function search the same tag name of keyword and return all XMLRoot finded in return_XML.<br>
+				it&#039s for geting all tag by name<br><br>
+
+				function:<br>
+				<code>bool Search_by_element(XMLRoot * search_XML&#44vector<XMLRoot *> &return_XML&#44string keyword);</code>
+
+				parameter:
+				<ul>
+					<li>search_XML one XMLRoot</li>
+					<li>return_XML result of query</li>
+					<li>keyword the searched name of markup</li>
+				</ul>
+				return:
+				<ul>
+					<li>false if don&#039t find keyword</li>
+				</ul>
+				<pre><code>
+					XMLRoot test();<br>
+					test.add_attribut(&quotkey&quot);<br>
+					test.add_value(&quot2&quot);<br>
+
+					int position = Search_by_atribut(test&#44&quotkey&quot);	//return the position of atribut &quotkey&quot here it&#039s 0<br>
+					cout << test.get_value(position);		//return the value of atribut &quotkey&quot here it&#039s &quot2&quot<br>
+				</code></pre>
+			</p>

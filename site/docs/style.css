@@ -18,8 +18,8 @@
 	*content width
 	****************/
 	--nav-width: 150px;
-	--article-padding: 5px;
-	--article-width: calc(100% - var(--nav-width) - var(--article-padding) * 3);
+	--article-padding: 10px;
+	--article-width: calc(100% - var(--nav-width) - var(--article-padding) * 2);
 }
 body{
 	background-color: var(--second-color);
@@ -87,9 +87,12 @@ img.logo{
 	height: 80px;
 	width: 64.32px;
 }
-ul{
+ul.links{
 	list-style: none;
 	width: 100%;
+}
+ul{
+	list-style: inside;
 }
 a.logo{
 	width: auto;

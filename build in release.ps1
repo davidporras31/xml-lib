@@ -69,6 +69,7 @@ cp .\site\docs\base.html .\site\docs\XMLUtility\Search_by_element.html
 
 &"./replace_core.ps1" -folder "site/" -filter "rules.txt"
 &"./replace_core.ps1" -folder "site/docs/" -filter "rules.txt"
+cp .\site\docs\main.js .\bin\site\docs\main.js
 &"./replace_core.ps1" -folder "site/docs/img/" -filter "rules.txt"
 cp .\site\docs\img\logo.png .\bin\site\docs\img\logo.png
 &"./replace_core.ps1" -folder "site/docs/example/" -filter "rules.txt"
@@ -76,6 +77,7 @@ cp .\site\docs\img\logo.png .\bin\site\docs\img\logo.png
 &"./replace_core.ps1" -folder "site/docs/XMLRoot/" -filter "rules.txt"
 &"./replace_core.ps1" -folder "site/docs/XMLUtility/" -filter "rules.txt"
 
+xcopy  .\site\docs\styles .\bin\site\docs\styles
 rm .\bin\site\docs\base.html
 
 echo "##########################-fin-##########################";
