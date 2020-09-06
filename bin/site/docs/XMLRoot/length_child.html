@@ -130,16 +130,25 @@
 		</nav>
 		<article id="article">
 			<p>
-				This is a method for load XML file from path.<br><br>
+				This is a method return number of child in parent object<br><br>
 
 				function:<br>
-				<code>void save_xml_file(string file);</code><br>
+				<code>int length_child();</code><br>
 
-				parameter:
+				parameter:	no parameter<br>
+				return:
 				<ul>
-					<li>file The path of the file to load</li>
+					<li>return number of child in this tag</li>
 				</ul>
-				return:	void<br>
+				<pre><code>
+	XMLRoot base;<br>
+	XMl_file.add_child(new XMLRoot);		//add 4 child<br>
+	XMl_file.add_child(new XMLRoot);<br>
+	XMl_file.add_child(new XMLRoot);<br>
+	XMl_file.add_child(new XMLRoot);<br>
+	<br>
+		cout << "base has " << XMl_file.length_child() << " child" << endl;		//length_child retrun 4<br>
+				</code></pre>
 			</p>
 		</article>
 	</div>

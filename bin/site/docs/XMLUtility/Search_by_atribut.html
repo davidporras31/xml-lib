@@ -103,16 +103,16 @@
 			        <a href="../XMLRoot/set_parent.html">set_parent</a>
 			  	</li>
 			  	<li>
-			        <a href="../XMLRoot/add_root.html">add_root</a>
+			        <a href="../XMLRoot/add_child.html">add_child</a>
 			  	</li>
 			  	<li>
-			        <a href="../XMLRoot/set_root.html">set_root</a>
+			        <a href="../XMLRoot/set_child.html">set_child</a>
 			  	</li>
 			  	<li>
-			        <a href="../XMLRoot/get_root.html">get_root</a>
+			        <a href="../XMLRoot/get_child.html">get_child</a>
 			  	</li>
 			  	<li>
-			        <a href="../XMLRoot/length_root.html">length_root</a>
+			        <a href="../XMLRoot/length_child.html">length_child</a>
 			  	</li>
 			  </ul>
 			</div>
@@ -131,10 +131,10 @@
 		<article id="article">
 			<p>
 				This is a function search the same atribut name of keyword and return place of atribut in search_XML.<br>
-				it&#039s use for geting value in data<br><br>
+				it's use for geting value in data<br><br>
 
 				function:<br>
-				<code>int Search_by_atribut(XMLRoot * search_XML&#44string keyword);</code>
+				<code>int Search_by_atribut(XMLRoot * search_XML,string keyword);</code><br>
 
 				parameter:
 				<ul>
@@ -146,12 +146,12 @@
 					<li>the atribut position</li>
 				</ul>
 				<pre><code>
-					XMLRoot test();<br>
-					test.add_attribut(&quotkey&quot);<br>
-					test.add_value(&quot2&quot);<br>
+	XMLRoot test();<br>
+	test.add_attribut("key");<br>
+	test.add_value("2");<br>
 
-					int position = Search_by_atribut(test&#44&quotkey&quot);	//return the position of atribut &quotkey&quot here it&#039s 0<br>
-					cout << test.get_value(position);		//return the value of atribut &quotkey&quot here it&#039s &quot2&quot<br>
+	int position = Search_by_atribut(test,"key");	//return the position of atribut "key" here it's 0<br>
+	cout << test.get_value(position);		//return the value of atribut "key" here it's "2"<br>
 				</code></pre>
 			</p>
 		</article>

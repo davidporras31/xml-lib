@@ -103,16 +103,16 @@
 			        <a href="../XMLRoot/set_parent.html">set_parent</a>
 			  	</li>
 			  	<li>
-			        <a href="../XMLRoot/add_root.html">add_root</a>
+			        <a href="../XMLRoot/add_child.html">add_child</a>
 			  	</li>
 			  	<li>
-			        <a href="../XMLRoot/set_root.html">set_root</a>
+			        <a href="../XMLRoot/set_child.html">set_child</a>
 			  	</li>
 			  	<li>
-			        <a href="../XMLRoot/get_root.html">get_root</a>
+			        <a href="../XMLRoot/get_child.html">get_child</a>
 			  	</li>
 			  	<li>
-			        <a href="../XMLRoot/length_root.html">length_root</a>
+			        <a href="../XMLRoot/length_child.html">length_child</a>
 			  	</li>
 			  </ul>
 			</div>
@@ -129,7 +129,33 @@
 			</div>
 		</nav>
 		<article id="article">
-			/XMLRoot/article/
+			<p>
+				XMLRoot is a base class for modify and construct XML data<br><br>
+				methode:
+				<ul>
+					<li>void set_tag_name(string el);</li>
+			        <li>string get_tag_name();</li>
+			        <li>void set_text(string tx);</li>
+			        <li>string get_text();</li>
+			        <li>int length_text();</li>
+			        <li>int length_text_without_wihtespace();</li>
+			        <li>void add_attribut(string att);</li>
+			        <li>void set_attribut(string att,int id);</li>
+			        <li>string get_attribut(int id);</li>
+			        <li>int length_attribut();</li>
+			        <li>void add_value(string val);</li>
+			        <li>void set_value(string val,int id);</li>
+			        <li>string get_value(int id);</li>
+			        <li>int length_value();</li>
+			        <li>XMLRoot * get_parent();</li>
+			        <li>void set_parent(XMLRoot * new_parent);</li>
+			        <li>void add_child(XMLRoot new_child);</li>
+			        <li>void set_child(XMLRoot new_child,int id);</li>
+			        <li>XMLRoot * get_child(int id);</li>
+			        <li>XMLRoot * get_child();</li>
+			        <li>int length_child();</li>
+				</ul>
+			</p>
 		</article>
 	</div>
 	<footer>

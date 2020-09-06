@@ -103,16 +103,16 @@
 			        <a href="../XMLRoot/set_parent.html">set_parent</a>
 			  	</li>
 			  	<li>
-			        <a href="../XMLRoot/add_root.html">add_root</a>
+			        <a href="../XMLRoot/add_child.html">add_child</a>
 			  	</li>
 			  	<li>
-			        <a href="../XMLRoot/set_root.html">set_root</a>
+			        <a href="../XMLRoot/set_child.html">set_child</a>
 			  	</li>
 			  	<li>
-			        <a href="../XMLRoot/get_root.html">get_root</a>
+			        <a href="../XMLRoot/get_child.html">get_child</a>
 			  	</li>
 			  	<li>
-			        <a href="../XMLRoot/length_root.html">length_root</a>
+			        <a href="../XMLRoot/length_child.html">length_child</a>
 			  	</li>
 			  </ul>
 			</div>
@@ -131,20 +131,32 @@
 		<article id="article">
 			<p>
 				This is a function search the same tag name of keyword and return all XMLRoot finded in return_XML.<br>
-				it&#039s for geting all tag by name<br><br>
+				it's for geting all tag by name<br><br>
 
 				function:<br>
-				<code>bool Search_by_element(XMLRoot * search_XML&#44vector<XMLRoot *> &return_XML&#44string keyword);</code>
+				<code>bool Search_by_element(XMLRoot * search_XML,vector<XMLRoot *> &return_XML,string keyword);</code><br>
 
 				parameter:
 				<ul>
 					<li>search_XML one XMLRoot</li>
 					<li>return_XML result of query</li>
-					<li>keyword the searched name of markup</li>
+					<li>keyword the searched name of tag</li>
 				</ul>
 				return:
 				<ul>
-					<li>false
+					<li>false if don't find keyword</li>
+				</ul>
+				<pre><code>
+	XMLBase XML_file;<br>
+	XMl_file.load_xml_file(example.xml);		//open xml file<br>
+	vector<XMLRoot *> return_query;				//variable for stock result of query<br>
+	<br>
+	if (Search_by_element(&XML_file,return_query,"cube") )<br>
+	{<br>
+		cout << "example.xml has " << return_query.size() << " tag named cube" << endl;		//retrun number of tag named "cube"<br>
+	}<br>
+				</code></pre>
+			</p>
 		</article>
 	</div>
 	<footer>

@@ -22,10 +22,10 @@
 				</ul>
 			</p>@/Search_by_atribut/article/@<p>
 				This is a function search the same atribut name of keyword and return place of atribut in search_XML.<br>
-				it&#039s use for geting value in data<br><br>
+				it's use for geting value in data<br><br>
 
 				function:<br>
-				<code>int Search_by_atribut(XMLRoot * search_XML&#44string keyword);</code>
+				<code>int Search_by_atribut(XMLRoot * search_XML,string keyword);</code><br>
 
 				parameter:
 				<ul>
@@ -37,36 +37,335 @@
 					<li>the atribut position</li>
 				</ul>
 				<pre><code>
-					XMLRoot test();<br>
-					test.add_attribut(&quotkey&quot);<br>
-					test.add_value(&quot2&quot);<br>
+	XMLRoot test();<br>
+	test.add_attribut("key");<br>
+	test.add_value("2");<br>
 
-					int position = Search_by_atribut(test&#44&quotkey&quot);	//return the position of atribut &quotkey&quot here it&#039s 0<br>
-					cout << test.get_value(position);		//return the value of atribut &quotkey&quot here it&#039s &quot2&quot<br>
+	int position = Search_by_atribut(test,"key");	//return the position of atribut "key" here it's 0<br>
+	cout << test.get_value(position);		//return the value of atribut "key" here it's "2"<br>
 				</code></pre>
 			</p>@/Search_by_element/article/@<p>
 				This is a function search the same tag name of keyword and return all XMLRoot finded in return_XML.<br>
-				it&#039s for geting all tag by name<br><br>
+				it's for geting all tag by name<br><br>
 
 				function:<br>
-				<code>bool Search_by_element(XMLRoot * search_XML&#44vector<XMLRoot *> &return_XML&#44string keyword);</code>
+				<code>bool Search_by_element(XMLRoot * search_XML,vector<XMLRoot *> &return_XML,string keyword);</code><br>
 
 				parameter:
 				<ul>
 					<li>search_XML one XMLRoot</li>
 					<li>return_XML result of query</li>
-					<li>keyword the searched name of markup</li>
+					<li>keyword the searched name of tag</li>
 				</ul>
 				return:
 				<ul>
-					<li>false if don&#039t find keyword</li>
+					<li>false if don't find keyword</li>
 				</ul>
 				<pre><code>
-					XMLRoot test();<br>
-					test.add_attribut(&quotkey&quot);<br>
-					test.add_value(&quot2&quot);<br>
-
-					int position = Search_by_atribut(test&#44&quotkey&quot);	//return the position of atribut &quotkey&quot here it&#039s 0<br>
-					cout << test.get_value(position);		//return the value of atribut &quotkey&quot here it&#039s &quot2&quot<br>
+	XMLBase XML_file;<br>
+	XMl_file.load_xml_file(example.xml);		//open xml file<br>
+	vector<XMLRoot *> return_query;				//variable for stock result of query<br>
+	<br>
+	if (Search_by_element(&XML_file,return_query,"cube") )<br>
+	{<br>
+		cout << "example.xml has " << return_query.size() << " tag named cube" << endl;		//retrun number of tag named "cube"<br>
+	}<br>
 				</code></pre>
+			</p>@/length_child/article/@<p>
+				This is a method return number of child in parent object<br><br>
+
+				function:<br>
+				<code>int length_child();</code><br>
+
+				parameter:	no parameter<br>
+				return:
+				<ul>
+					<li>return number of child in this tag</li>
+				</ul>
+				<pre><code>
+	XMLRoot base;<br>
+	XMl_file.add_child(new XMLRoot);		//add 4 child<br>
+	XMl_file.add_child(new XMLRoot);<br>
+	XMl_file.add_child(new XMLRoot);<br>
+	XMl_file.add_child(new XMLRoot);<br>
+	<br>
+		cout << "base has " << XMl_file.length_child() << " child" << endl;		//length_child retrun 4<br>
+				</code></pre>
+			</p>@/get_child/article/@<p>
+				This is a method return pointer of one child<br><br>
+
+				function:<br>
+				<code>XMLRoot * get_child(int id);</code><br>
+
+				parameter:
+				<ul>
+					<li>id number of child</li>
+				</ul>
+				return:
+				<ul>
+					<li>one pointer on the child</li>
+				</ul>
+			</p>@/set_child/article/@<p>
+				This is a method for replace one child<br><br>
+
+				function:<br>
+				<code>void set_child(XMLRoot new_child,int id);</code><br>
+
+				parameter:
+				<ul>
+					<li>new_child the new child</li>
+					<li>id number of child</li>
+				</ul>
+				return:	void<br>
+			</p>@/add_child/article/@<p>
+				This is a method for add one child at last<br><br>
+
+				function:<br>
+				<code>void add_child(XMLRoot new_child);</code><br>
+
+				parameter:
+				<ul>
+					<li>new_child the new child</li>
+				</ul>
+				return:	void<br>
+			</p>@/set_parent/article/@<p>
+				This is a method for modify parent of this tag<br><br>
+
+				function:<br>
+				<code>void set_parent(XMLRoot * new_parent);</code><br>
+
+				parameter:
+				<ul>
+					<li>new_parent one pointer on the parent</li>
+				</ul>
+				return:	void<br>			
+			</p>@/get_parent/article/@<p>
+				This is a method for geting parent of this tag<br><br>
+
+				function:<br>
+				<code>XMLRoot * get_parent();</code><br>
+
+				parameter:	no parameter<br>
+				return:
+				<ul>
+					<li>one pointer on the parent</li>
+				</ul>
+			</p>@/length_value/article/@<p>
+				This is a method for geting length of attribut value in tag<br><br>
+
+				function:<br>
+				<code>int length_value();</code><br>
+
+				parameter:	no parameter<br>
+				return:
+				<ul>
+					<li>length of attribut value</li>
+				</ul>
+			</p>@/get_value/article/@<p>
+				This is a method for geting attribut value in tag<br><br>
+
+				function:<br>
+				<code>string get_value(int id);</code><br>
+
+				parameter:
+				<ul>
+					<li>id, the place of attribut</li>
+				</ul>
+				return:
+				<ul>
+					<li>the attribut value </li>
+				</ul>
+			</p>@/set_value/article/@<p>
+				This is a method for modify attribut value in tag<br><br>
+
+				function:<br>
+				<code>void set_value(string val,int id);</code><br>
+
+				parameter:
+				<ul>
+					<li>val, the new value of attribut</li>
+					<li>id, the place of attribut</li>
+				</ul>
+				return:	void<br>
+			</p>@/add_value/article/@<p>
+				This is a method for add attribut value in tag<br><br>
+
+				function:<br>
+				<code>void add_value(string val);</code><br>
+
+				parameter:
+				<ul>
+					<li>val, the new value of attribut</li>
+				</ul>
+				return:	void<br>
+			</p>
+			</p>@/length_attribut/article/@<p>
+				This is a method for geting length of attribut name in tag<br><br>
+
+				function:<br>
+				<code>int length_attribut();</code><br>
+
+				parameter:	no parameter<br>
+				return:
+				<ul>
+					<li>length of attribut name</li>
+				</ul>
+			</p>@/get_attribut/article/@<p>
+				This is a method for geting attribut name in tag<br><br>
+
+				function:<br>
+				<code>string get_attribut(int id);</code><br>
+
+				parameter:
+				<ul>
+					<li>id, the place of attribut</li>
+				</ul>
+				return:
+				<ul>
+					<li>the attribut name </li>
+				</ul>
+			</p>@/set_attribut/article/@<p>
+				This is a method for modify attribut name in tag<br><br>
+
+				function:<br>
+				<code>void set_attribut(string att,int id);</code><br>
+
+				parameter:
+				<ul>
+					<li>att, the new attribut name</li>
+					<li>id, the place of attribut</li>
+				</ul>
+				return:	void<br>
+			</p>@/add_attribut/article/@<p>
+				This is a method for add attribut name in tag<br><br>
+
+				function:<br>
+				<code>void add_attribut(string att);</code><br>
+
+				parameter:
+				<ul>
+					<li>att, the new attribut name</li>
+				</ul>
+				return:	void<br>
+			</p>@/length_text_without_wihtespace/article/@<p>
+				This is a method for geting length of text in tag without wihtespace<br><br>
+
+				function:<br>
+				<code>int length_text_without_wihtespace();</code><br>
+
+				parameter:	no parameter<br>
+				return:
+				<ul>
+					<li>the length of text without wihtespace</li>
+				</ul>
+			</p>@/length_text/article/@<p>
+				This is a method for geting length of text in tag<br><br>
+
+				function:<br>
+				<code>int length_text();</code><br>
+
+				parameter:	no parameter<br>
+				return:
+				<ul>
+					<li>the length of text</li>
+				</ul>
+			</p>@/get_text/article/@<p>
+				This is a method for geting text in tag<br><br>
+
+				function:<br>
+				<code>string get_text();</code><br>
+
+				parameter:	no parameter<br>
+				return:
+				<ul>
+					<li>the text</li>
+				</ul>
+			</p>@/set_text/article/@<p>
+				This is a method for modify text in tag<br><br>
+
+				function:<br>
+				<code>void set_text(string tx);</code><br>
+
+				parameter:
+				<ul>
+					<li>tx, the new text</li>
+				</ul>
+				return:	void<br>
+			</p>@/get_tag_name/article/@<p>
+				This is a method for geting tag name<br><br>
+
+				function:<br>
+				<code>string get_tag_name();</code><br>
+
+				parameter:	no parameter<br>
+				return:
+				<ul>
+					<li>the tag name</li>
+				</ul>
+			</p>@/set_tag_name/article/@<p>
+				This is a method for modify tag name<br><br>
+
+				function:<br>
+				<code>void set_tag_name(string el);</code><br>
+
+				parameter:
+				<ul>
+					<li>el, the new tag name</li>
+				</ul>
+				return:	void<br>
+			</p>@/XMLRoot/article/@<p>
+				XMLRoot is a base class for modify and construct XML data<br><br>
+				methode:
+				<ul>
+					<li>void set_tag_name(string el);</li>
+			        <li>string get_tag_name();</li>
+			        <li>void set_text(string tx);</li>
+			        <li>string get_text();</li>
+			        <li>int length_text();</li>
+			        <li>int length_text_without_wihtespace();</li>
+			        <li>void add_attribut(string att);</li>
+			        <li>void set_attribut(string att,int id);</li>
+			        <li>string get_attribut(int id);</li>
+			        <li>int length_attribut();</li>
+			        <li>void add_value(string val);</li>
+			        <li>void set_value(string val,int id);</li>
+			        <li>string get_value(int id);</li>
+			        <li>int length_value();</li>
+			        <li>XMLRoot * get_parent();</li>
+			        <li>void set_parent(XMLRoot * new_parent);</li>
+			        <li>void add_child(XMLRoot new_child);</li>
+			        <li>void set_child(XMLRoot new_child,int id);</li>
+			        <li>XMLRoot * get_child(int id);</li>
+			        <li>XMLRoot * get_child();</li>
+			        <li>int length_child();</li>
+				</ul>
+			</p>@/save_xml_file/article/@<p>
+				This is a method for load XML file from path.<br><br>
+
+				function:<br>
+				<code>void save_xml_file(string file);</code><br>
+
+				parameter:
+				<ul>
+					<li>file The path of the file to load</li>
+				</ul>
+				return:	void<br>
+			</p>@/load_xml_file/article/@<p>
+				This is a method for save XML file from path.<br><br>
+
+				function:<br>
+				<code>void load_xml_file(string file);</code><br>
+
+				parameter:
+				<ul>
+					<li>file The path of the file to save</li>
+				</ul>
+				return:	void<br>
+			</p>@/XMLBase/article/@<p>
+				XMLBase is a base class for save and load XML file<br><br>
+				methode:
+				<ul>
+					<li>void load_xml_file(string file);</li>
+					<li>void save_xml_file(string file);</li>
+				</ul>
 			</p>
