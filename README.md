@@ -1,8 +1,8 @@
-# xml-project
+# xml-lib
 a simple xml file / object convertor
 
 ## documentation
-[documentation access](docs/index.md)
+[documentation access](https://davidporras31.github.io/xml-lib/)
 
 ## task lists
 - [ ] loading method
