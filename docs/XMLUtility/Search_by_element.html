@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>XML-lib</title>
+	<meta charset="utf-8"/>
+	<link rel="stylesheet" type="text/css" href="../style.css"/>
+	<script src="../main.js" type="text/javascript"></script>
+
+	<link rel="stylesheet" href="../styles/vs2015.css">
+	<script src="../highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body onload="load()">
+	<header>
+		<a class="logo" href="./../../index.html"><img src="../img/logo.png" alt="logo" class="logo"></a>		
+		<p class="header">a simple xml file / object convertor</p>
+	</header>
+	<div id="content">
+		<nav id="navigation">
+			<button type="button" class="collapsible" onclick="bouton(this)">example</button>
+			<div class="content">
+			  <ul class="links">
+			  	<li>
+			  		<a href="../example/load.html">load file</a>
+			  	</li>
+			  	<li>
+			  		<a href="../example/save.html">save file</a>
+			  	</li>
+			  	<li>
+			  		<a href="../example/make.html">make XML</a>
+			  	</li>
+			  	<li>
+			  		<a href="../example/Search.html">Search</a>
+			  	</li>
+			  </ul>
+			</div>
+			<button type="button" class="collapsible" onclick="bouton(this)">XMLBase</button>
+			<div class="content">
+			  <ul class="links">
+			  	<li>
+			  		<a href="../XMLBase/XMLBase.html">XMLBase</a>
+			  	</li>
+			  	<li>
+			  		<a href="../XMLBase/load_xml_file.html">load_xml_file</a>
+			  	</li>
+			  	<li>
+			  		<a href="../XMLBase/save_xml_file.html">save_xml_file</a>
+			  	</li>
+			  </ul>
+			</div>
+			<button type="button" class="collapsible" onclick="bouton(this)">XMLRoot</button>
+			<div class="content">
+			  <ul class="links">
+			  	<li>
+			  		<a href="../XMLRoot/XMLRoot.html">XMLRoot</a>
+			  	</li>
+			  	<li>
+			  		<a href="../XMLRoot/set_element.html">set_element</a>
+			  	</li>
+			  	<li>
+			  		<a href="../XMLRoot/get_element.html">get_element</a>
+			  	</li>
+			  	<li>
+			        <a href="../XMLRoot/set_text.html">set_text</a>
+			  	</li>
+			  	<li>
+			        <a href="../XMLRoot/get_text.html">get_text</a>
+			  	</li>
+			  	<li>
+			        <a href="../XMLRoot/length_text.html">length_text</a>
+			  	</li>
+			  	<li>
+			        <a href="../XMLRoot/length_text_without_wihtespace.html">length_text_without_wihtespace</a>
+			  	</li>
+			  	<li>
+			        <a href="../XMLRoot/add_attribut.html">add_attribut</a>
+			  	</li>
+			  	<li>
+			        <a href="../XMLRoot/set_attribut.html">set_attribut</a>
+			  	</li>
+			  	<li>
+			        <a href="../XMLRoot/get_attribut.html">get_attribut</a>
+			  	</li>
+			  	<li>
+			        <a href="../XMLRoot/length_attribut.html">length_attribut</a>
+			  	</li>
+			  	<li>
+			        <a href="../XMLRoot/add_value.html">add_value</a>
+			  	</li>
+			  	<li>
+			        <a href="../XMLRoot/set_value.html">set_value</a>
+			  	</li>
+			  	<li>
+			        <a href="../XMLRoot/get_value.html">get_value</a>
+			  	</li>
+			  	<li>
+			        <a href="../XMLRoot/length_value.html">length_value</a>
+			  	</li>
+			  	<li>
+			        <a href="../XMLRoot/get_parent.html">get_parent</a>
+			  	</li>
+			  	<li>
+			        <a href="../XMLRoot/set_parent.html">set_parent</a>
+			  	</li>
+			  	<li>
+			        <a href="../XMLRoot/add_child.html">add_child</a>
+			  	</li>
+			  	<li>
+			        <a href="../XMLRoot/set_child.html">set_child</a>
+			  	</li>
+			  	<li>
+			        <a href="../XMLRoot/get_child.html">get_child</a>
+			  	</li>
+			  	<li>
+			        <a href="../XMLRoot/length_child.html">length_child</a>
+			  	</li>
+			  </ul>
+			</div>
+			<button type="button" class="collapsible" onclick="bouton(this)">XMLUtility</button>
+			<div class="content">
+			  <ul class="links">
+			  	<li>
+			  		<a href="../XMLUtility/Search_by_atribut.html">Search_by_atribut</a>
+			  	</li>
+			  	<li>
+			  		<a href="../XMLUtility/Search_by_element.html">Search_by_element</a>
+			  	</li>
+			  </ul>
+			</div>
+		</nav>
+		<article id="article">
+			<p>
+				This is a function search the same tag name of keyword and return all XMLRoot finded in return_XML.<br>
+				it's for geting all tag by name<br><br>
+
+				function:<br>
+				<code>bool Search_by_element(XMLRoot * search_XML,vector<XMLRoot *> &return_XML,string keyword);</code><br>
+
+				parameter:
+				<ul>
+					<li>search_XML one XMLRoot</li>
+					<li>return_XML result of query</li>
+					<li>keyword the searched name of tag</li>
+				</ul>
+				return:
+				<ul>
+					<li>false if don't find keyword</li>
+				</ul>
+				<pre><code>
+	XMLBase XML_file;<br>
+	XMl_file.load_xml_file(example.xml);		//open xml file<br>
+	vector<XMLRoot *> return_query;				//variable for stock result of query<br>
+	<br>
+	if (Search_by_element(&XML_file,return_query,"cube") )<br>
+	{<br>
+		cout << "example.xml has " << return_query.size() << " tag named cube" << endl;		//retrun number of tag named "cube"<br>
+	}<br>
+				</code></pre>
+			</p>
+		</article>
+	</div>
+	<footer>
+		<center>
+			Site maked by David PORRAS
+		</center>
+	</footer>
+</body>
+</html>

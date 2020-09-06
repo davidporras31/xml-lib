@@ -1,24 +1,50 @@
+*{
+	margin: 0px;
+	padding: 0px;
+	/****************
+	*main color
+	****************/
+	--main-color: #3a5f61;
+	--second-color: #20585a;
+	--thirdly-color: #41696c;
+	--fourth-color: #7be6c0;
+	--fifth-color: #dcfdd4;
+	/****************
+	*text color
+	****************/
+	--main-text-color: #d2d2d2;
+	--second-text-color: #dedede;
+	/****************
+	*content width
+	****************/
+	--nav-width: 150px;
+	--article-padding: 10px;
+	--article-width: calc(100% - var(--nav-width) - var(--article-padding) * 2);
+}
 body{
-	background-color: #20585a;
+	background-color: var(--second-color);
 	margin: 0px;
 	width: 100%;
 	height: 100%;
 }
 header{
-	background-color: #3a5f61; 
+	background-color: var(--main-color); 
 	width: 100%;
 }
 nav{
-	width: 19%;
+	width: var(--nav-width);
 	float: left;
 }
 article{
-	background-color: #1b867d;
-	width: 80%;
+	color: var(--second-text-color);
+	background-color: var(--thirdly-color);
+	width: var(--article-width);
+	padding: var(--article-padding);
 	float: right;
 }
 footer{
-	background-color: #3a5f61;
+	color: var(--main-text-color);
+	background-color: var(--main-color);
 	width: 100%;
 	bottom: 0px;
 }
@@ -27,11 +53,17 @@ div#content{
 	height: 0px;
 }
 p{
-	color: black;
+	color: var(--main-text-color);
+}
+p.header{
+	position: absolute;
+	top: 30px;
+	left: 70px;
+	font-size: 2em;
 }
 .collapsible {
-  background-color: #3a5f61;
-  color: white;
+  background-color: var(--main-color);
+  color: var(--main-text-color);
   cursor: pointer;
   padding: 18px;
   width: 100%;
@@ -46,17 +78,41 @@ p{
 }
 
 .content {
-  padding: 0 18px;
+  padding: 0px;
   display: none;
   overflow: hidden;
-  background-color: #1b867d;
+  background-color: var(--thirdly-color);
 }
 img.logo{
 	height: 80px;
-	width: 80px;
+	width: 64.32px;
 }
-3a5f61
-20585a
-1b867d
-7be6c0
-dcfdd4
+ul.links{
+	list-style: none;
+	width: 100%;
+}
+ul{
+	list-style: inside;
+}
+a.logo{
+	width: auto;
+}
+a{
+	color: var(--second-text-color);
+	width: var(--nav-width);
+	text-align: center;
+	text-decoration: none; 
+	display: inline-block;
+}
+a:link, a:visited, a:focus {
+  background: transparent;
+}
+
+a:hover {     
+  background: #555;
+}
+
+a:active {
+  background: #555;
+  color: var(--main-text-color);
+}
