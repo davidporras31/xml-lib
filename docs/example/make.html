@@ -55,10 +55,10 @@
 			  		<a href="../XMLRoot/XMLRoot.html">XMLRoot</a>
 			  	</li>
 			  	<li>
-			  		<a href="../XMLRoot/set_element.html">set_element</a>
+			  		<a href="../XMLRoot/set_tag_name.html">set_tag_name</a>
 			  	</li>
 			  	<li>
-			  		<a href="../XMLRoot/get_element.html">get_element</a>
+			  		<a href="../XMLRoot/get_tag_name.html">get_tag_name</a>
 			  	</li>
 			  	<li>
 			        <a href="../XMLRoot/set_text.html">set_text</a>
@@ -129,7 +129,42 @@
 			</div>
 		</nav>
 		<article id="article">
-			/make/article/
+			<p>
+				in this library we have the class XMLRoot for make or modify XML data.<br>
+				XMLRoot use example:
+				<pre><code>
+	/*
+	the equivalent xml file :
+	&lt;parent&gt;
+		&lt;cube color="red"&gt;&lt;/cube&gt;
+		&lt;cube&gt;&lt;/cube&gt;
+		&lt;circle&gt;&lt;/circle&gt;
+	&lt;/parent&gt;
+	*/
+
+	XMLRoot parent;		//make parent
+	parent.set_tag_name("parent");	//give it the name "parent"
+
+	XMLRoot * tmp_root = new XMLRoot; //create tmp_root for contain pointer on new root and create new root	
+	tmp_root->set_tag_name("cube");	//change the name of root
+	tmp_root->add_attribut("color");	//add a new attribut name "color"
+	tmp_root->add_value("red");	//add a new attribut value "red"
+
+	parent.add_child(&tmp_root);	//link the naked root to parent
+
+	tmp_root = new XMLRoot;	//create new root
+	tmp_root->set_tag_name("cube");
+	
+	parent.add_child(&tmp_root);
+
+	tmp_root = new XMLRoot;	//create new root
+	tmp_root->set_tag_name("circle");
+	
+	parent.add_child(*tmp_root);
+
+
+				</code></pre>
+			</p>
 		</article>
 	</div>
 	<footer>
