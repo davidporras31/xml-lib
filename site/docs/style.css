@@ -116,3 +116,7 @@ a:active {
   background: #555;
   color: var(--main-text-color);
 }
+pre{
+	width: fit-content;
+	height: auto;
+}

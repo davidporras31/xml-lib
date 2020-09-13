@@ -55,10 +55,10 @@
 			  		<a href="../XMLRoot/XMLRoot.html">XMLRoot</a>
 			  	</li>
 			  	<li>
-			  		<a href="../XMLRoot/set_element.html">set_element</a>
+			  		<a href="../XMLRoot/set_tag_name.html">set_tag_name</a>
 			  	</li>
 			  	<li>
-			  		<a href="../XMLRoot/get_element.html">get_element</a>
+			  		<a href="../XMLRoot/get_tag_name.html">get_tag_name</a>
 			  	</li>
 			  	<li>
 			        <a href="../XMLRoot/set_text.html">set_text</a>
@@ -147,14 +147,22 @@
 					<li>false if don't find keyword</li>
 				</ul>
 				<pre><code>
-	XMLBase XML_file;<br>
-	XMl_file.load_xml_file(example.xml);		//open xml file<br>
-	vector<XMLRoot *> return_query;				//variable for stock result of query<br>
-	<br>
-	if (Search_by_element(&XML_file,return_query,"cube") )<br>
-	{<br>
-		cout << "example.xml has " << return_query.size() << " tag named cube" << endl;		//retrun number of tag named "cube"<br>
-	}<br>
+	/*
+	example.xml content:
+	&lt;parent&gt;
+		&lt;cube&gt;&lt;/cube&gt;
+		&lt;cube&gt;&lt;/cube&gt;
+		&lt;circle&gt;&lt;/circle&gt;
+	&lt;/parent&gt;
+	*/
+	XMLBase XML_file;
+	XMl_file.load_xml_file(example.xml);		//open xml file
+	vector<XMLRoot *> return_query;				//variable for stock result of query
+	
+	if (Search_by_element(&XML_file,return_query,"cube") )
+	{
+		cout << "example.xml has " << return_query.size() << " tag named cube" << endl;		//retrun number of tag named "cube"	
+	}
 				</code></pre>
 			</p>
 		</article>

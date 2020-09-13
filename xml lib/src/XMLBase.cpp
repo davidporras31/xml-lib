@@ -31,6 +31,28 @@ XMLBase::~XMLBase()
     //dtor
 }
 
+XMLBase XMLBase::operator=(XMLRoot t)
+{
+    this->set_parent(t.get_parent());
+    this->set_tag_name(t.get_tag_name());
+    this->set_text(t.get_text());
+
+    for(int i = 0; i<=t.length_attribut()-1 ;i++)
+    {
+        this->add_attribut(t.get_attribut(i));
+    }
+    for(int i = 0; i<=t.length_value()-1 ;i++)
+    {
+        this->add_value(t.get_value(i));
+    }
+
+    for(int i = 0; i<=t.length_child()-1 ;i++)
+    {
+        this->add_child(* t.get_child(i));
+    }
+    return *this;
+}
+
 void XMLBase::load_xml_file(string file)
 {
     int n = file.length();                      //convert string to char

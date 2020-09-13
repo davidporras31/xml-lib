@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "XMLBase.h"
+#include "XMLRoot.h"
 #include "XMLUtility.h"
 
 using namespace std;
@@ -32,6 +33,21 @@ int main()
     {
         cout << "query : " <<return_query.at(1)->get_tag_name()<< "\t" << "nb return : " << return_query.size() << endl;
     }
+    cout << "convert XMLRoot in XMLBase" << endl;
+    XMLRoot parent;		//make parent
+	parent.set_tag_name("parent");	//give it the name "parent"
+
+	XMLRoot * tmp_root = new XMLRoot; //create tmp_root for contain pointer on new root and create new root
+	tmp_root->set_tag_name("cube");	//change the name of root
+	tmp_root->add_attribut("color");	//add a new attribut name "color"
+	tmp_root->add_value("red");	//add a new attribut value "red"
+
+	parent.add_child(*tmp_root);
+
+    XMLBase new_file;
+
+    new_file = parent;
+    cout << "data access test :" << new_file.get_child()->get_tag_name() << endl;
 
 
     //worldmap.save_xml_file("save.xml");

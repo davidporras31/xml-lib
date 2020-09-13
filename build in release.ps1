@@ -11,8 +11,8 @@ cp .\site\docs\base.html .\site\docs\XMLBase\load_xml_file.html
 cp .\site\docs\base.html .\site\docs\XMLBase\save_xml_file.html
 
 cp .\site\docs\base.html .\site\docs\XMLRoot\XMLRoot.html
-cp .\site\docs\base.html .\site\docs\XMLRoot\set_element.html
-cp .\site\docs\base.html .\site\docs\XMLRoot\get_element.html
+cp .\site\docs\base.html .\site\docs\XMLRoot\set_tag_name.html
+cp .\site\docs\base.html .\site\docs\XMLRoot\get_tag_name.html
 cp .\site\docs\base.html .\site\docs\XMLRoot\set_text.html
 cp .\site\docs\base.html .\site\docs\XMLRoot\get_text.html
 cp .\site\docs\base.html .\site\docs\XMLRoot\length_text.html
@@ -39,12 +39,14 @@ cp .\site\docs\base.html .\site\docs\XMLUtility\Search_by_element.html
 ./replace_core.ps1 -one_file $True -folder "./site/docs/example/save.html" -result "./site/docs/example/" -rule "/base/article/@/save/article/"
 ./replace_core.ps1 -one_file $True -folder "./site/docs/example/make.html" -result "./site/docs/example/" -rule "/base/article/@/make/article/"
 ./replace_core.ps1 -one_file $True -folder "./site/docs/example/Search.html" -result "./site/docs/example/" -rule "/base/article/@/Search/article/"
+
 ./replace_core.ps1 -one_file $True -folder "./site/docs/XMLBase/XMLBase.html" -result "./site/docs/XMLBase/" -rule "/base/article/@/XMLBase/article/"
 ./replace_core.ps1 -one_file $True -folder "./site/docs/XMLBase/load_xml_file.html" -result "./site/docs/XMLBase/" -rule "/base/article/@/load_xml_file/article/"
 ./replace_core.ps1 -one_file $True -folder "./site/docs/XMLBase/save_xml_file.html" -result "./site/docs/XMLBase/" -rule "/base/article/@/save_xml_file/article/"
+
 ./replace_core.ps1 -one_file $True -folder "./site/docs/XMLRoot/XMLRoot.html" -result "./site/docs/XMLRoot/" -rule "/base/article/@/XMLRoot/article/"
-./replace_core.ps1 -one_file $True -folder "./site/docs/XMLRoot/set_element.html" -result "./site/docs/XMLRoot/" -rule "/base/article/@/set_element/article/"
-./replace_core.ps1 -one_file $True -folder "./site/docs/XMLRoot/get_element.html" -result "./site/docs/XMLRoot/" -rule "/base/article/@/get_element/article/"
+./replace_core.ps1 -one_file $True -folder "./site/docs/XMLRoot/set_tag_name.html" -result "./site/docs/XMLRoot/" -rule "/base/article/@/set_tag_name/article/"
+./replace_core.ps1 -one_file $True -folder "./site/docs/XMLRoot/get_tag_name.html" -result "./site/docs/XMLRoot/" -rule "/base/article/@/get_tag_name/article/"
 ./replace_core.ps1 -one_file $True -folder "./site/docs/XMLRoot/set_text.html" -result "./site/docs/XMLRoot/" -rule "/base/article/@/set_text/article/"
 ./replace_core.ps1 -one_file $True -folder "./site/docs/XMLRoot/get_text.html" -result "./site/docs/XMLRoot/" -rule "/base/article/@/get_text/article/"
 ./replace_core.ps1 -one_file $True -folder "./site/docs/XMLRoot/length_text.html" -result "./site/docs/XMLRoot/" -rule "/base/article/@/length_text/article/"
@@ -63,6 +65,7 @@ cp .\site\docs\base.html .\site\docs\XMLUtility\Search_by_element.html
 ./replace_core.ps1 -one_file $True -folder "./site/docs/XMLRoot/set_child.html" -result "./site/docs/XMLRoot/" -rule "/base/article/@/set_child/article/"
 ./replace_core.ps1 -one_file $True -folder "./site/docs/XMLRoot/get_child.html" -result "./site/docs/XMLRoot/" -rule "/base/article/@/get_child/article/"
 ./replace_core.ps1 -one_file $True -folder "./site/docs/XMLRoot/length_child.html" -result "./site/docs/XMLRoot/" -rule "/base/article/@/length_child/article/"
+
 ./replace_core.ps1 -one_file $True -folder "./site/docs/XMLUtility/Search_by_atribut.html" -result "./site/docs/XMLUtility/" -rule "/base/article/@/Search_by_atribut/article/"
 ./replace_core.ps1 -one_file $True -folder "./site/docs/XMLUtility/Search_by_element.html" -result "./site/docs/XMLUtility/" -rule "/base/article/@/Search_by_element/article/"
 

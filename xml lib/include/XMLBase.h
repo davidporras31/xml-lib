@@ -16,6 +16,7 @@ class XMLBase : public XMLRoot
         XMLBase();
         XMLBase(string file);
         ~XMLBase();
+        XMLBase operator=(const XMLRoot t);
         /** \brief This is a method for load XML file from path.
          *
          * \param	file The path of the file to load.

@@ -55,10 +55,10 @@
 			  		<a href="../XMLRoot/XMLRoot.html">XMLRoot</a>
 			  	</li>
 			  	<li>
-			  		<a href="../XMLRoot/set_element.html">set_element</a>
+			  		<a href="../XMLRoot/set_tag_name.html">set_tag_name</a>
 			  	</li>
 			  	<li>
-			  		<a href="../XMLRoot/get_element.html">get_element</a>
+			  		<a href="../XMLRoot/get_tag_name.html">get_tag_name</a>
 			  	</li>
 			  	<li>
 			        <a href="../XMLRoot/set_text.html">set_text</a>
@@ -129,7 +129,25 @@
 			</div>
 		</nav>
 		<article id="article">
-			/save/article/
+			<p>
+				in this library you can convert maked XML data in XML file.
+				<pre><code>
+	XMLRoot parent;		//make parent
+	parent.set_tag_name("parent");	//give it the name "parent"
+
+	XMLRoot * tmp_root = new XMLRoot; //create tmp_root for contain pointer on new root and create new root	
+	tmp_root->set_tag_name("cube");	//change the name of root
+	tmp_root->add_attribut("color");	//add a new attribut name "color"
+	tmp_root->add_value("red");	//add a new attribut value "red"
+
+	parent.add_child(*tmp_root);
+
+	XMLBase new_file;
+
+	new_file = parent;	//convert parent in XMLBase
+	new_file.save_xml_file("save.xml");
+				</code></pre>
+			</p>
 		</article>
 	</div>
 	<footer>

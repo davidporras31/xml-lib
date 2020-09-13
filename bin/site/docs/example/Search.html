@@ -55,10 +55,10 @@
 			  		<a href="../XMLRoot/XMLRoot.html">XMLRoot</a>
 			  	</li>
 			  	<li>
-			  		<a href="../XMLRoot/set_element.html">set_element</a>
+			  		<a href="../XMLRoot/set_tag_name.html">set_tag_name</a>
 			  	</li>
 			  	<li>
-			  		<a href="../XMLRoot/get_element.html">get_element</a>
+			  		<a href="../XMLRoot/get_tag_name.html">get_tag_name</a>
 			  	</li>
 			  	<li>
 			        <a href="../XMLRoot/set_text.html">set_text</a>
@@ -129,7 +129,42 @@
 			</div>
 		</nav>
 		<article id="article">
-			/Search/article/
+			<p>
+				in this library we have two function to search in XML data:
+				<ul>
+					<li><code>int Search_by_atribut(XMLRoot * search_XML,string keyword);</code></li>
+					<li><code>bool Search_by_element(XMLRoot * search_XML,vector<XMLRoot *> &return_XML,string keyword);</code></li>
+				</ul>
+				Search_by_element it use for search tag by name in parent XMLRoot and Search_by_atribut it use for get value of atribut by the name of atribut.<br><br>
+				example for Search_by_atribut:
+				<pre><code>
+	XMLRoot test();
+	test.add_attribut("key");
+	test.add_value("2");
+
+	int position = Search_by_atribut(test,"key");	//return the position of atribut "key" here it's 0	
+	cout << test.get_value(position);		//return the value of atribut "key" here it's "2"
+				</code></pre><br>
+				example for Search_by_element:
+				<pre><code>
+	/*
+	example.xml content:
+	&lt;parent&gt;
+		&lt;cube&gt;&lt;/cube&gt;
+		&lt;cube&gt;&lt;/cube&gt;
+		&lt;circle&gt;&lt;/circle&gt;
+	&lt;/parent&gt;
+	*/
+	XMLBase XML_file;
+	XMl_file.load_xml_file(example.xml);		//open xml file
+	vector<XMLRoot *> return_query;				//variable for stock result of query
+	
+	if (Search_by_element(&XML_file,return_query,"cube") )
+	{
+		cout << "example.xml has " << return_query.size() << " tag named cube" << endl;		//retrun number of tag named "cube"	
+	}
+				</code></pre>
+			</p>
 		</article>
 	</div>
 	<footer>
