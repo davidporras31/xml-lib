@@ -54,21 +54,23 @@
 	"XMLBase.h"
 	"XMLRoot.h"
 
-1600017049 source:d:\documents\projet\xml-project\xml lib\src\xmlbase.cpp
+1600267932 source:d:\documents\projet\xml-project\xml lib\src\xmlbase.cpp
 	<stdio.h>
 	<stdlib.h>
+	<sstream>
+	<fstream>
 	<string.h>
 	<iostream>
 	"XMLBase.h"
 
-1600014736 d:\documents\projet\xml-project\xml lib\include\xmlbase.h
+1600095866 d:\documents\projet\xml-project\xml lib\include\xmlbase.h
 	<XMLRoot.h>
 
 1596963039 d:\documents\projet\xml-project\xml lib\include\xmlroot.h
 	<string>
 	<vector>
 
-1596963040 source:d:\documents\projet\xml-project\xml lib\src\xmlroot.cpp
+1600105731 source:d:\documents\projet\xml-project\xml lib\src\xmlroot.cpp
 	"XMLRoot.h"
 
 1596963040 source:d:\documents\projet\xml-project\xml lib\src\xmlutility.cpp
@@ -79,12 +81,50 @@
 	<string>
 	"XMLRoot.h"
 
-1600016986 source:d:\documents\projet\xml-project\xml lib\main.cpp
+1600194204 source:d:\documents\projet\xml-project\xml lib\main.cpp
 	<iostream>
 	<stdio.h>
 	<string>
 	<vector>
 	"XMLBase.h"
 	"XMLRoot.h"
+	"XMLUtility.h"
+
+1600194204 source:d:\documents\projet\xml-project\xml_lib\main.cpp
+	<iostream>
+	<stdio.h>
+	<string>
+	<vector>
+	"XMLBase.h"
+	"XMLRoot.h"
+	"XMLUtility.h"
+
+1600450949 d:\documents\projet\xml-project\xml_lib\include\xmlbase.h
+	<XMLRoot.h>
+
+1596963039 d:\documents\projet\xml-project\xml_lib\include\xmlroot.h
+	<string>
+	<vector>
+
+1596963039 d:\documents\projet\xml-project\xml_lib\include\xmlutility.h
+	<vector>
+	<string>
+	"XMLRoot.h"
+
+1600454935 source:d:\documents\projet\xml-project\xml_lib\src\xmlbase.cpp
+	<stdio.h>
+	<thread>
+	<mutex>
+	<stdlib.h>
+	<sstream>
+	<fstream>
+	<string.h>
+	<iostream>
+	"XMLBase.h"
+
+1600453590 source:d:\documents\projet\xml-project\xml_lib\src\xmlroot.cpp
+	"XMLRoot.h"
+
+1596963040 source:d:\documents\projet\xml-project\xml_lib\src\xmlutility.cpp
 	"XMLUtility.h"
 

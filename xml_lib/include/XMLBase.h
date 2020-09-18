@@ -35,7 +35,7 @@ class XMLBase : public XMLRoot
     protected:
 
     private:
-        int save_helper(XMLRoot * parent , XMLRoot * child);
+
 };
 
 #endif // XMLBASE_H

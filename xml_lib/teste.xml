@@ -3,8 +3,8 @@
 	<cube test="coucou" lala="les_texte">
 		la
 	</cube>
-        la
-	<cube/>
+    la
+	<cube test="coucou"/>
 	<cube>
 
 	</cube>

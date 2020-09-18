@@ -20,7 +20,7 @@ int main()
     worldmap.load_xml_file(chemain);
 
     /*
-    cout << endl << "Length text without wihtespace : " << worldmap.get_root(0)->length_text_without_wihtespace() << endl;
+    cout << endl << "Length text without wihtespace : " << worldmap.get_child(0)->length_text_without_wihtespace() << endl;
     cout << "text :" << endl << worldmap.get_text() << endl;
 
 
@@ -31,7 +31,7 @@ int main()
     vector<XMLRoot *> return_query;
     if(Search_by_element(&worldmap,return_query,"cube"))
     {
-        cout << "query : " <<return_query.at(1)->get_tag_name()<< "\t" << "nb return : " << return_query.size() << endl;
+        cout << endl << "query : " <<return_query.at(1)->get_tag_name()<< "\t" << "nb return : " << return_query.size() << endl;
     }
     cout << "convert XMLRoot in XMLBase" << endl;
     XMLRoot parent;		//make parent
@@ -50,7 +50,7 @@ int main()
     cout << "data access test :" << new_file.get_child()->get_tag_name() << endl;
 
 
-    //worldmap.save_xml_file("save.xml");
+    worldmap.save_xml_file("save.xml");
 
 
     return 0;

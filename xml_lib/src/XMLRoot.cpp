@@ -3,6 +3,7 @@
 XMLRoot::XMLRoot()
 {
     //ctor
+    this->parent = nullptr;
 }
 
 XMLRoot::~XMLRoot()

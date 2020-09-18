@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<map>
+
+	
+    la
+	
+	
+<cube test="coucou" lala="les_texte">
+
+		la
+	</cube>
+<cube test="coucou"/>
+<cube/>
+</map>
