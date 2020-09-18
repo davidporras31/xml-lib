@@ -1,14 +1,18 @@
 #include <stdio.h>
+#include <thread>
+#include <mutex>
 #include <stdlib.h>
+#include <sstream>
+#include <fstream>
 #include <string.h>
 #include <iostream>
 
 #include "XMLBase.h"
 
 #ifdef DEBUG
-    #define print(text) cout << text ;
+    #define PRINT(text) cout << text
 #else
-    #define print(text) //
+    #define PRINT(text) //
 #endif // DEBUG
 
 using namespace std;
@@ -17,6 +21,7 @@ XMLBase::XMLBase()
     :XMLRoot()
 {
     //ctor
+
 }
 
 XMLBase::XMLBase(string file)
@@ -29,6 +34,28 @@ XMLBase::XMLBase(string file)
 XMLBase::~XMLBase()
 {
     //dtor
+}
+
+XMLBase XMLBase::operator=(XMLRoot t)
+{
+    this->set_parent(t.get_parent());
+    this->set_tag_name(t.get_tag_name());
+    this->set_text(t.get_text());
+
+    for(int i = 0; i<=t.length_attribut()-1 ;i++)
+    {
+        this->add_attribut(t.get_attribut(i));
+    }
+    for(int i = 0; i<=t.length_value()-1 ;i++)
+    {
+        this->add_value(t.get_value(i));
+    }
+
+    for(int i = 0; i<=t.length_child()-1 ;i++)
+    {
+        this->add_child(* t.get_child(i));
+    }
+    return *this;
 }
 
 void XMLBase::load_xml_file(string file)
@@ -65,7 +92,7 @@ void XMLBase::load_xml_file(string file)
         {
             break;
         }
-        print(text)
+        PRINT(text);
         //condition
         if (chevron_open)
         {
@@ -81,7 +108,7 @@ void XMLBase::load_xml_file(string file)
                 while(text!='>')
                 {
                     fread(&text,1,1,load_xml);
-                    print(text)
+                    PRINT(text);
                 }
                 fread(&text,1,1,load_xml);
                 goto returnRuntime;
@@ -91,7 +118,7 @@ void XMLBase::load_xml_file(string file)
                 if(racine)
                 {
                     racine = false;
-                    position->set_parent(NULL);
+                    position->set_parent(nullptr);
                 }
                 else
                 {
@@ -115,8 +142,11 @@ void XMLBase::load_xml_file(string file)
         if (text=='>')
         {
             balise = false;
-            if (slash)
+            if (slash)                      //if is a orphan tag
             {
+                string error = position->get_value(position->length_value()-1);
+                error.erase(error.end()-1);
+                position->set_value(error,position->length_value()-1);
                 position = position->get_parent();
             }
         }
@@ -172,109 +202,80 @@ void XMLBase::load_xml_file(string file)
     }
     fclose(load_xml);
 }
+
 void XMLBase::save_xml_file(string file) //work in progress
 {
-    int n = file.length();                      //convert string to char
-    char char_array[n + 1];
-    strcpy(char_array, file.c_str());
-
-    FILE* save_xml = NULL;                      //ouverture fichier
-    save_xml = fopen(char_array,"w");
-    rewind(save_xml);
-
-    //création d'un fichier
+    //write
+    ofstream result_file;                       //open file
+    result_file.open(file,ios::trunc);
+    result_file << "<?xml version=\"1.0\"?>" << endl;
 
     XMLRoot * position = this;
-    string tmp;
+    XMLRoot * last = nullptr;
 
-
-    //char text;
-    char debut[22] = "<?xml version=\"1.0\"?>";
-    fwrite(debut , sizeof(char), sizeof(debut)-1, save_xml);
-    char buffer = '\n';
-    fwrite(&buffer , sizeof(char), sizeof(buffer), save_xml);
-
-    while(position != NULL)
-    {
-        buffer = '<';
-        fwrite(&buffer , sizeof(char), sizeof(buffer), save_xml);
-
-        tmp = position->get_tag_name();
-        for(unsigned int i = 0 ; i < tmp.length(); i++)
+    PRINT("saving"<<endl);
+    do{
+        if(last!=nullptr)
         {
-            fwrite(&tmp.at(i) , sizeof(char), sizeof(char), save_xml);
+            if(last->length_child() != 0 || last->length_text_without_wihtespace() != 0)
+            {
+                result_file << "</" << last->get_tag_name() << '>' << endl;
+            }
         }
+        PRINT(position<<endl);
+        result_file << '<' << position->get_tag_name();
 
         for(int i=0 ; i<position->length_attribut() ; i++)
         {
-            buffer = ' ';
-            fwrite(&buffer , sizeof(char), sizeof(buffer), save_xml);
-            tmp = position->get_attribut(i);
-            for(unsigned int t = 0 ; t < tmp.length(); t++)
-            {
-                fwrite(&tmp.at(t) , sizeof(char), sizeof(char), save_xml);
-            }
-            buffer = '=';
-            fwrite(&buffer , sizeof(char), sizeof(buffer), save_xml);
-            buffer = '\"';
-            fwrite(&buffer , sizeof(char), sizeof(buffer), save_xml);
-            tmp = position->get_value(i);
-            for(unsigned int t = 0 ; t < tmp.length(); t++)
-            {
-                fwrite(&tmp.at(t) , sizeof(char), sizeof(char), save_xml);
-            }
-            buffer = '\"';
-            fwrite(&buffer , sizeof(char), sizeof(buffer), save_xml);
+            result_file << ' ' << position->get_attribut(i) << '=' << '\"' << position->get_value(i) << '\"';
         }
 
         if(position->length_child() == 0 && position->length_text_without_wihtespace() == 0)
         {
-            buffer = '/';
-            fwrite(&buffer , sizeof(char), sizeof(buffer), save_xml);
-            buffer = '>';
-            fwrite(&buffer , sizeof(char), sizeof(buffer), save_xml);
-            buffer = '\n';
-            fwrite(&buffer , sizeof(char), sizeof(buffer), save_xml);
+            result_file << "/>" << endl;
         }
         else
         {
-            if(position->length_child()!=0)
-            {
-                position = position->get_child(this->save_helper(position->get_parent(),position)+1);
-            }
-            else
-            {
-                XMLRoot * tmp_root = NULL;
-                int back_test = 0;
-                while(position != tmp_root)
-                {
-                    back_test = back_test+1;
-                    tmp_root = position->get_parent()->get_child(back_test);
-                }
-                position = position->get_parent()->get_child(back_test+1);
-            }
+            result_file << '>'<< endl;
         }
-
-        buffer = '>';
-        fwrite(&buffer , sizeof(char), sizeof(buffer), save_xml);
-        buffer = '\n';
-        fwrite(&buffer , sizeof(char), sizeof(buffer), save_xml);
-    }
-
-    fclose(save_xml);
-}
-
-
-
-int XMLBase::save_helper(XMLRoot * the_parent , XMLRoot * child)
-{
-    int i = 1;
-    print(i)
-    while(the_parent->get_child(i) != child)
-    {
-        i = i+1;
-        print(i)
-    }
-    print(i)
-    return i;
+        if(position->length_text_without_wihtespace() != 0)
+        {
+            result_file << position->get_text();
+        }
+        if(position->length_child() != 0)
+        {
+            position = position->get_child(0);
+        }
+        else
+        {
+            bool loop = false;
+            do{
+                last = position;
+                position = position->get_parent();
+                if(position != nullptr)
+                {
+                    int i = 0;
+                    while(position->get_child(i) != last)
+                    {
+                        i=i+1;
+                    }
+                    if(position->length_child()-1 != i)
+                    {
+                        position = position->get_child(i+1);
+                    }
+                    else
+                    {
+                        if(position->get_parent()!=nullptr)
+                        {
+                            loop = true;
+                        }
+                    }
+                }
+            }while(loop);
+        }
+    }while(position->get_parent() != nullptr);
+    result_file << "</" << this->get_tag_name() << ">";
+    PRINT("end");
+    result_file.close();
+    return;
 }

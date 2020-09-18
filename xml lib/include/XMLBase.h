@@ -16,6 +16,7 @@ class XMLBase : public XMLRoot
         XMLBase();
         XMLBase(string file);
         ~XMLBase();
+        XMLBase operator=(const XMLRoot t);
         /** \brief This is a method for load XML file from path.
          *
          * \param	file The path of the file to load.
@@ -34,7 +35,7 @@ class XMLBase : public XMLRoot
     protected:
 
     private:
-        int save_helper(XMLRoot * parent , XMLRoot * child);
+
 };
 
 #endif // XMLBASE_H
