@@ -1,0 +1,122 @@
+*{
+	margin: 0px;
+	padding: 0px;
+	/****************
+	*main color
+	****************/
+	--main-color: #3a5f61;
+	--second-color: #20585a;
+	--thirdly-color: #41696c;
+	--fourth-color: #7be6c0;
+	--fifth-color: #dcfdd4;
+	/****************
+	*text color
+	****************/
+	--main-text-color: #d2d2d2;
+	--second-text-color: #dedede;
+	/****************
+	*content width
+	****************/
+	--nav-width: 150px;
+	--article-padding: 10px;
+	--article-width: calc(100% - var(--nav-width) - var(--article-padding) * 2);
+}
+body{
+	background-color: var(--second-color);
+	margin: 0px;
+	width: 100%;
+	height: 100%;
+}
+header{
+	background-color: var(--main-color); 
+	width: 100%;
+}
+nav{
+	width: var(--nav-width);
+	float: left;
+}
+article{
+	color: var(--second-text-color);
+	background-color: var(--thirdly-color);
+	width: var(--article-width);
+	padding: var(--article-padding);
+	float: right;
+}
+footer{
+	color: var(--main-text-color);
+	background-color: var(--main-color);
+	width: 100%;
+	bottom: 0px;
+}
+div#content{
+	width: 100%;
+	height: 0px;
+}
+p{
+	color: var(--main-text-color);
+}
+p.header{
+	position: absolute;
+	top: 30px;
+	left: 70px;
+	font-size: 2em;
+}
+.collapsible {
+  background-color: var(--main-color);
+  color: var(--main-text-color);
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+.active, .collapsible:hover {
+  background-color: #555;
+}
+
+.content {
+  padding: 0px;
+  display: none;
+  overflow: hidden;
+  background-color: var(--thirdly-color);
+}
+img.logo{
+	height: 80px;
+	width: 64.32px;
+}
+ul.links{
+	list-style: none;
+	width: 100%;
+}
+ul{
+	list-style: inside;
+}
+a.logo{
+	width: auto;
+}
+a{
+	color: var(--second-text-color);
+	width: var(--nav-width);
+	text-align: center;
+	text-decoration: none; 
+	display: inline-block;
+}
+a:link, a:visited, a:focus {
+  background: transparent;
+}
+
+a:hover {     
+  background: #555;
+}
+
+a:active {
+  background: #555;
+  color: var(--main-text-color);
+}
+pre{
+	width: fit-content;
+	height: auto;
+}
