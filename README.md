@@ -11,7 +11,7 @@ a simple xml file / object convertor
 - [X] manipulation method
 
 ## version
-alfa 0.3:
+alpha 0.3:
 - add finich loading method
 - add finich saving method
 
