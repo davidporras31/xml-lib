@@ -5,17 +5,15 @@ a simple xml file / object convertor
 [documentation access](https://davidporras31.github.io/xml-lib/)
 
 ## task lists
-- [ ] loading method
-- [ ] saving method
+- [x] loading method
+- [x] saving method
 - [X] shearch method
 - [X] manipulation method
 
 ## version
-alfa 0.2:
-- add all shearch method and manipulation method
-- add alfa loading method
-- add pre alpha saving method (not working)
+alfa 0.3:
+- add finich loading method
+- add finich saving method
 
 ## issue
-- in loading method when method scan a orphan tag, the last atribut value adds "/"
-- in loading method when method scan a atribut value with space, it reacts by cutting the value in half
+- no issue
