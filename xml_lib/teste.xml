@@ -2,6 +2,9 @@
 <map>
 	<cube test="coucou" lala="les_texte">
 		la
+		<coucou test="true">
+			test
+		</coucou>
 	</cube>
     la
 	<cube test="coucou"/>
