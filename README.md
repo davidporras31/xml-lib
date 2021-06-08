@@ -3,7 +3,7 @@ a simple xml file / object convertor
 
 
 ## documentation
-[documentation access](https://davidporras31.github.io/xml-lib/)
+[documentation access](https://davidporras31.github.io/xml-lib/documentation/bin/site/)
 
 ## version
 alpha 0.3:
