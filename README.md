@@ -1,6 +1,9 @@
 # xml-lib
 a simple xml file / object convertor
 
+<<<<<<< HEAD
+[test doc](docs/index.md)
+=======
 ## documentation
 [documentation access](https://davidporras31.github.io/xml-lib/)
 
@@ -17,3 +20,4 @@ alpha 0.3:
 
 ## issue
 - no issue
+>>>>>>> master
