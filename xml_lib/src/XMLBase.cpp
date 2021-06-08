@@ -1,11 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <sstream>
-#include <fstream>
-#include <string.h>
-#include <iostream>
-
-#include "XMLBase.h"
+#include "../include/XMLBase.h"
 
 #ifdef DEBUG
     #define PRINT(text) cout << text
@@ -13,7 +6,6 @@
     #define PRINT(text) //
 #endif // DEBUG
 
-using namespace std;
 
 XMLBase::XMLBase()
     :XMLRoot()

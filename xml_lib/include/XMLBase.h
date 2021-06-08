@@ -7,8 +7,16 @@
 #ifndef XMLBASE_H
 #define XMLBASE_H
 
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sstream>
+#include <fstream>
+#include <string.h>
+
 #include "XMLRoot.h"
 
+using namespace std;
 
 class XMLBase : public XMLRoot
 {
