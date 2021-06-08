@@ -1,7 +1,7 @@
 # xml-lib
 a simple xml file / object convertor
 
-=======
+
 ## documentation
 [documentation access](https://davidporras31.github.io/xml-lib/)
 
