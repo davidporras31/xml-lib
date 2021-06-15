@@ -50,18 +50,16 @@ XMLBase XMLBase::operator=(XMLRoot t)
 
 void XMLBase::load_xml_file(string file)
 {
-    int n = file.length();                      //convert string to char
-    char char_array[n + 1];
-    strcpy(char_array, file.c_str());
+    //int n = file.length();                      //convert string to char
+    //char char_array[n + 1];
+    //strcpy(char_array, file.c_str());
 
-    FILE* load_xml = NULL;                      //ouverture fichier
-    load_xml = fopen(char_array,"r");
-    rewind(load_xml);
+	ifstream xml_file(file);                      //ouverture fichier
 
-    char text;
+    char text = ' ';
     while(text != '\n')                                 //on passe une linge
     {
-        fread(&text,1,1,load_xml);
+		xml_file.get(text);
     }
 
     //var de lecture
@@ -75,7 +73,7 @@ void XMLBase::load_xml_file(string file)
     bool slash = false;
     bool chevron_open = false;
 
-    while(fread(&text,1,1,load_xml) ==1)                //lecture fichier + mapage xml
+    while(xml_file.get(text))                //lecture fichier + mapage xml
     {
         returnRuntime:
         if(position==0x0)
@@ -97,10 +95,10 @@ void XMLBase::load_xml_file(string file)
                 balise = false;
                 while(text!='>')
                 {
-                    fread(&text,1,1,load_xml);
+					xml_file.get(text);
                     PRINT(text);
                 }
-                fread(&text,1,1,load_xml);
+				xml_file.get(text);
                 goto returnRuntime;
             }
             else
@@ -190,7 +188,7 @@ void XMLBase::load_xml_file(string file)
             }
         }
     }
-    fclose(load_xml);
+    xml_file.close();
 }
 
 void XMLBase::save_xml_file(string file) //work in progress
