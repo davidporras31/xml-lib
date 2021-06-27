@@ -1,10 +1,5 @@
 #include "../include/XMLBase.h"
 
-#ifdef DEBUG
-    #define PRINT(text) cout << text
-#else
-    #define PRINT(text) //
-#endif // DEBUG
 
 
 XMLBase::XMLBase()
@@ -77,7 +72,7 @@ void XMLBase::load_xml_file(string file)
         {
             break;
         }
-        PRINT(text);
+		
         //condition
         if (chevron_open)
         {
@@ -93,7 +88,6 @@ void XMLBase::load_xml_file(string file)
                 while(text!='>')
                 {
 					xml_file.get(text);
-                    PRINT(text);
                 }
 				xml_file.get(text);
                 goto returnRuntime;
@@ -198,7 +192,6 @@ void XMLBase::save_xml_file(string file) //work in progress
     XMLRoot * position = this;
     XMLRoot * last = nullptr;
 
-    PRINT("saving"<<endl);
     do{
         if(last!=nullptr)
         {
@@ -207,7 +200,6 @@ void XMLBase::save_xml_file(string file) //work in progress
                 result_file << "</" << last->get_tag_name() << '>' << endl;
             }
         }
-        PRINT(position<<endl);
         result_file << '<' << position->get_tag_name();
 
         for(int i=0 ; i<position->length_attribut() ; i++)
@@ -260,7 +252,6 @@ void XMLBase::save_xml_file(string file) //work in progress
         }
     }while(position->get_parent() != nullptr);
     result_file << "</" << this->get_tag_name() << ">";
-    PRINT("end");
     result_file.close();
     return;
 }
