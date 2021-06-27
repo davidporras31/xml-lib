@@ -50,19 +50,16 @@ XMLBase XMLBase::operator=(XMLRoot t)
 
 void XMLBase::load_xml_file(string file)
 {
-    //int n = file.length();                      //convert string to char
-    //char char_array[n + 1];
-    //strcpy(char_array, file.c_str());
 
-	ifstream xml_file(file);                      //ouverture fichier
+	ifstream xml_file(file);
 
     char text = ' ';
-    while(text != '\n')                                 //on passe une linge
+    while(text != '\n')                                 //add get encoding
     {
 		xml_file.get(text);
     }
 
-    //var de lecture
+    //var use for reading
     XMLRoot * position = this;
 
     bool balise = false;
@@ -73,7 +70,7 @@ void XMLBase::load_xml_file(string file)
     bool slash = false;
     bool chevron_open = false;
 
-    while(xml_file.get(text))                //lecture fichier + mapage xml
+    while(xml_file.get(text))                //reading file + mapping xml
     {
         returnRuntime:
         if(position==0x0)
