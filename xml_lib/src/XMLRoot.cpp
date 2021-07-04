@@ -27,16 +27,18 @@ string XMLRoot::get_text()
 {
     return this->text;
 }
-int XMLRoot::length_text()
+size_t XMLRoot::length_text()
 {
     return this->text.length();
 }
-int XMLRoot::length_text_without_wihtespace()
+size_t XMLRoot::length_text_without_wihtespace()
 {
-    int nb = 0;
-    for(unsigned int i=0;i<=this->text.length();i++)
+    size_t nb = 0;
+    for(size_t i=0;i<=this->text.length();i++)
     {
-        if(this->text[i]!= '\t' && this->text[i]!= '\n' && this->text[i]!= '\r' && this->text[i]!= '\a' && this->text[i]!= '\b' && this->text[i]!= '\f' && this->text[i]!= '\v' && this->text[i]!= '\0'&& this->text[i]!= '\e')
+        if(this->text[i]!= '\t' && this->text[i]!= '\n' && this->text[i]!= '\r' && this->text[i]!= '\a'
+           && this->text[i]!= '\b' && this->text[i]!= '\f' && this->text[i]!= '\v' && this->text[i]!= '\0'
+           && this->text[i]!= '\e' && this->text[i]!= ' ')
         {
             nb = nb + 1;
         }
@@ -48,15 +50,15 @@ void XMLRoot::add_attribut(string att)
 {
     this->attribut.push_back(att);
 }
-void XMLRoot::set_attribut(string att,int id)
+void XMLRoot::set_attribut(string att,size_t id)
 {
     this->attribut.at(id) = att;
 }
-string XMLRoot::get_attribut(int id)
+string XMLRoot::get_attribut(size_t id)
 {
     return this->attribut.at(id);
 }
-int XMLRoot::length_attribut()
+size_t XMLRoot::length_attribut()
 {
     return this->attribut.size();
 }
@@ -65,15 +67,15 @@ void XMLRoot::add_value(string val)
 {
     this->value.push_back(val);
 }
-void XMLRoot::set_value(string val,int id)
+void XMLRoot::set_value(string val,size_t id)
 {
     this->value.at(id) = val;
 }
-string XMLRoot::get_value(int id)
+string XMLRoot::get_value(size_t id)
 {
     return this->value.at(id);
 }
-int XMLRoot::length_value()
+size_t XMLRoot::length_value()
 {
     return this->value.size();
 }
@@ -91,11 +93,11 @@ void XMLRoot::add_child(XMLRoot new_child)
 {
     this->child.push_back(new_child);
 }
-void XMLRoot::set_child(XMLRoot new_child,int id)
+void XMLRoot::set_child(XMLRoot new_child,size_t id)
 {
     this->child.at(id) = new_child;
 }
-XMLRoot * XMLRoot::get_child(int id)
+XMLRoot * XMLRoot::get_child(size_t id)
 {
     return &(this->child.at(id));
 }
@@ -103,7 +105,24 @@ XMLRoot * XMLRoot::get_child()
 {
     return &(this->child.back());
 }
-int XMLRoot::length_child()
+size_t XMLRoot::length_child()
 {
     return this->child.size();
+}
+void XMLRoot::for_each(function<void(XMLRoot *,void *)> prefunc, void * args)
+{
+    prefunc(this, args);
+    for(size_t i=0; i<this->length_child(); i++)
+    {
+        this->get_child(i)->for_each(prefunc, args);
+    }
+}
+void XMLRoot::for_each(function<void(XMLRoot *,void *)> prefunc, function<void(XMLRoot *,void *)> postfunc, void * args)
+{
+    prefunc(this, args);
+    for(size_t i=0; i<this->length_child(); i++)
+    {
+        this->get_child(i)->for_each(prefunc, postfunc, args);
+    }
+    postfunc(this, args);
 }

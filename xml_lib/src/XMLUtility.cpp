@@ -3,7 +3,7 @@
 
 int Search_by_atribut(XMLRoot * search_XML,string keyword)
 {
-    for(int i = 0; i < search_XML->length_attribut(); i++)
+    for(size_t i = 0; i < search_XML->length_attribut(); i++)
     {
         if(search_XML->get_attribut(i) == keyword)
         {
@@ -15,7 +15,7 @@ int Search_by_atribut(XMLRoot * search_XML,string keyword)
 bool Search_by_element(XMLRoot * search_XML,vector<XMLRoot *> &return_XML,string keyword)
 {
     bool return_value = false;
-    for(int i = 0; i < search_XML->length_child(); i++)
+    for(size_t i = 0; i < search_XML->length_child(); i++)
     {
         if(search_XML->get_child(i)->get_tag_name() == keyword)
         {

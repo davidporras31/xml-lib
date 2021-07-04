@@ -39,3 +39,4 @@
 *.layout
 *.test
 *.xml
+xml_lib/main.cpp
