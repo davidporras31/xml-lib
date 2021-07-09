@@ -23,7 +23,7 @@ XMLBase::~XMLBase()
 
 XMLBase::XMLBase(const XMLRoot& t)
 {
-
+    this->for_each(this->precopy,(void*)&t);
 }
 
 void XMLBase::load_xml_file(string file)
@@ -186,7 +186,7 @@ void XMLBase::Watchdogs_load_xml_file(string file)
         }
     }
     xml_file.close();
-    this->for_each(this->preload,(void *)this);
+    this->for_each(this->precleanup,(void *)this);
     #ifdef Use_Watchdogs
         this->job_finich = true;
     #endif // Use_Watchdogs
@@ -274,7 +274,7 @@ void XMLBase::postsave(XMLRoot* root,void * args)
     }
 }
 
-void XMLBase::preload(XMLRoot* root,void * args)
+void XMLBase::precleanup(XMLRoot* root,void * args)
 {
     #ifdef Use_Watchdogs
         ((XMLBase*)args)->curent_timeout = 0;
@@ -310,5 +310,27 @@ void XMLBase::preload(XMLRoot* root,void * args)
     else
     {
         root->set_text("");
+    }
+}
+void XMLBase::precopy(XMLRoot* root,void * args)
+{
+    XMLRoot * to_get = (XMLRoot*)args;
+    for(size_t i=0; i < to_get->length_child(); i++)
+    {
+        XMLRoot tmp;
+        tmp.set_tag_name( to_get->get_child(i)->get_tag_name() );
+        tmp.set_text( to_get->get_child(i)->get_text() );
+        tmp.set_parent(root);
+
+        for(size_t y=0; y < to_get->get_child(i)->length_attribut(); y++)
+        {
+            tmp.add_attribut(to_get->get_child(i)->get_attribut(y));
+        }
+        for(size_t y=0; y < to_get->get_child(i)->length_value(); y++)
+        {
+            tmp.add_value(to_get->get_child(i)->get_value(y));
+        }
+
+        root->add_child(tmp);
     }
 }
