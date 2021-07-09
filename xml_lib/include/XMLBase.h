@@ -27,8 +27,8 @@ class XMLBase : public XMLRoot
     public:
         XMLBase();
         XMLBase(string file);
+        XMLBase(const XMLRoot& t);
         ~XMLBase();
-//        XMLBase operator=(const XMLRoot t);
         /** \brief This is a method for load XML file from path.
          *
          * \param	file The path of the file to load.
@@ -59,6 +59,7 @@ class XMLBase : public XMLRoot
     private:
         static void presave(XMLRoot* root,void * args);
         static void postsave(XMLRoot* root,void * args);
+        static void preload(XMLRoot* root,void * args);
         ofstream output_file;
 		#ifdef Use_Watchdogs
             bool job_finich;

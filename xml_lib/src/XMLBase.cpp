@@ -21,27 +21,10 @@ XMLBase::~XMLBase()
     //dtor
 }
 
-//XMLBase XMLBase::operator=(XMLRoot t)
-//{
-////    this->set_parent(t.get_parent());
-////    this->set_tag_name(t.get_tag_name());
-////    this->set_text(t.get_text());
-////
-////    for(int i = 0; i<=t.length_attribut()-1 ;i++)
-////    {
-////        this->add_attribut(t.get_attribut(i));
-////    }
-////    for(int i = 0; i<=t.length_value()-1 ;i++)
-////    {
-////        this->add_value(t.get_value(i));
-////    }
-////
-////    for(int i = 0; i<=t.length_child()-1 ;i++)
-////    {
-////        this->add_child(* t.get_child(i));
-////    }
-//    return t;
-//}
+XMLBase::XMLBase(const XMLRoot& t)
+{
+
+}
 
 void XMLBase::load_xml_file(string file)
 {
@@ -203,6 +186,7 @@ void XMLBase::Watchdogs_load_xml_file(string file)
         }
     }
     xml_file.close();
+    this->for_each(this->preload,(void *)this);
     #ifdef Use_Watchdogs
         this->job_finich = true;
     #endif // Use_Watchdogs
@@ -270,7 +254,6 @@ void XMLBase::presave(XMLRoot* root,void * args)
         ((XMLBase*)args)->output_file << '>'<< endl;
         if(root->length_text_without_wihtespace() != 0)
         {
-            auto testes= root->length_text_without_wihtespace();
             ((XMLBase*)args)->output_file << root->get_text() << endl;
         }
     }
@@ -288,5 +271,44 @@ void XMLBase::postsave(XMLRoot* root,void * args)
     else
     {
         ((XMLBase*)args)->output_file << "</" << root->get_tag_name() << ">" << endl;
+    }
+}
+
+void XMLBase::preload(XMLRoot* root,void * args)
+{
+    #ifdef Use_Watchdogs
+        ((XMLBase*)args)->curent_timeout = 0;
+    #endif // Use_Watchdogs
+    if(root->length_text() != 0)
+    {
+        string clean_text = root->get_text();
+        //cleaning text
+        size_t i = 0;
+        if(clean_text.size() != 0)
+        {
+            while(is_wihtespace(clean_text[i]))
+            {
+                if(clean_text.size() <= i)
+                    break;
+                i++;
+            }
+            clean_text.erase(clean_text.begin(),clean_text.begin()+i);
+        }
+        i = clean_text.size();
+        if(clean_text.size() != 0)
+        {
+            while(is_wihtespace(clean_text[i]))
+            {
+                if(0 > i)
+                    break;
+                i--;
+            }
+            clean_text.erase(clean_text.begin()+i+1,clean_text.end());
+        }
+        root->set_text(clean_text);
+    }
+    else
+    {
+        root->set_text("");
     }
 }

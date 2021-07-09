@@ -36,9 +36,7 @@ size_t XMLRoot::length_text_without_wihtespace()
     size_t nb = 0;
     for(size_t i=0;i<=this->text.length();i++)
     {
-        if(this->text[i]!= '\t' && this->text[i]!= '\n' && this->text[i]!= '\r' && this->text[i]!= '\a'
-           && this->text[i]!= '\b' && this->text[i]!= '\f' && this->text[i]!= '\v' && this->text[i]!= '\0'
-           && this->text[i]!= '\e' && this->text[i]!= ' ')
+        if(!XMLRoot::is_wihtespace(this->text[i]))
         {
             nb = nb + 1;
         }
@@ -125,4 +123,12 @@ void XMLRoot::for_each(function<void(XMLRoot *,void *)> prefunc, function<void(X
         this->get_child(i)->for_each(prefunc, postfunc, args);
     }
     postfunc(this, args);
+}
+
+bool XMLRoot::is_wihtespace(char text)
+{
+    bool test = text== '\t' || text== '\n' || text== '\r' || text== '\a'
+           || text== '\b' || text== '\f' || text== '\v' || text== '\0'
+           || text== '\e' || text== ' ';
+    return test;
 }

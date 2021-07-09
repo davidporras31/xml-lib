@@ -182,6 +182,7 @@ class XMLRoot
         size_t length_child();
         void for_each(function<void(XMLRoot *,void *)> prefunc, void * args = NULL);
         void for_each(function<void(XMLRoot *,void *)> prefunc, function<void(XMLRoot *,void *)> postfunc, void * args = NULL);
+        static bool is_wihtespace(char text);
     protected:
 
     private:
@@ -191,6 +192,7 @@ class XMLRoot
         string text;
         vector<string> attribut;
         vector<string> value;
+
 };
 
 #endif // XMLROOT_H
