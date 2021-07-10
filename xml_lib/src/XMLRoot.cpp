@@ -6,6 +6,11 @@ XMLRoot::XMLRoot()
     this->parent = nullptr;
 }
 
+XMLRoot::XMLRoot(const XMLRoot& t)
+{
+    this->for_each(this->precopy,(void*)&t);
+}
+
 XMLRoot::~XMLRoot()
 {
     //dtor
@@ -131,4 +136,27 @@ bool XMLRoot::is_wihtespace(char text)
            || text== '\b' || text== '\f' || text== '\v' || text== '\0'
            || text== '\e' || text== ' ';
     return test;
+}
+
+void XMLRoot::precopy(XMLRoot* root,void * args)
+{
+    XMLRoot * to_get = (XMLRoot*)args;
+    for(size_t i=0; i < to_get->length_child(); i++)
+    {
+        XMLRoot tmp;
+        tmp.set_tag_name( to_get->get_child(i)->get_tag_name() );
+        tmp.set_text( to_get->get_child(i)->get_text() );
+        tmp.set_parent(root);
+
+        for(size_t y=0; y < to_get->get_child(i)->length_attribut(); y++)
+        {
+            tmp.add_attribut(to_get->get_child(i)->get_attribut(y));
+        }
+        for(size_t y=0; y < to_get->get_child(i)->length_value(); y++)
+        {
+            tmp.add_value(to_get->get_child(i)->get_value(y));
+        }
+
+        root->add_child(tmp);
+    }
 }
