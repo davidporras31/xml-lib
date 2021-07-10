@@ -3,12 +3,24 @@
 XMLRoot::XMLRoot()
 {
     //ctor
-    this->parent = nullptr;
+    this->set_parent(NULL);
 }
 
-XMLRoot::XMLRoot(const XMLRoot& t)
+XMLRoot::XMLRoot(XMLRoot* t)
 {
-    this->for_each(this->precopy,(void*)&t);
+    this->set_tag_name( t->get_tag_name() );
+    this->set_text( t->get_text() );
+    this->set_parent(NULL);
+
+    for(size_t y=0; y < t->length_attribut(); y++)
+    {
+        this->add_attribut(t->get_attribut(y));
+    }
+    for(size_t y=0; y < t->length_value(); y++)
+    {
+        this->add_value(t->get_value(y));
+    }
+    this->for_each(this->precopy,(void*)t);
 }
 
 XMLRoot::~XMLRoot()

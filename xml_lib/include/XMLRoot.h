@@ -17,7 +17,7 @@ class XMLRoot
 {
     public:
         XMLRoot();
-        XMLRoot(const XMLRoot& t);
+        XMLRoot(XMLRoot* t);
         ~XMLRoot();
         /** \brief This is a function for modify tag name
 		 *
