@@ -12,7 +12,6 @@ alpha 0.4:
 - update loading with c++ lib
 - add watchdog on loading and saving
 - add xmlroot copy constructor
-- add encryption suport
 
 ## issue
 - no issue
