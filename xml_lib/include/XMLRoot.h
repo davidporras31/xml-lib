@@ -181,8 +181,31 @@ class XMLRoot
 		 * This is a function for geting number of child
 		*/
         size_t length_child();
+        /** \brief This is a function for invoke function on all child of the current instance and on the current instance
+		 *
+		 * \param	prefunc, the function to invoke, the first parameter is the current instance executed, the final parameter is the data of args parameter
+		 * \param	args, one common parameter to use on the loop
+		 *
+		 * This is a function for invoke function on all child of the current instance and on the current instance
+		*/
         void for_each(function<void(XMLRoot *,void *)> prefunc, void * args = NULL);
+        /** \brief This is a function for invoke function on all child of the current instance and on the current instance
+		 *
+		 * \param	prefunc, the function to invoke, the first parameter is the current instance executed, the final parameter is the data of args parameter
+		 * \param	postfunc, the function to invoke after invoke all child, the first parameter is the current instance executed, the final parameter is the data of args parameter
+		 * \param	args, one common parameter to use on the loop
+		 *
+		 * This is a function for invoke function on all child of the current instance and on the current instance
+		*/
         void for_each(function<void(XMLRoot *,void *)> prefunc, function<void(XMLRoot *,void *)> postfunc, void * args = NULL);
+        /** \brief This is a function for finding if the char is wihtespace
+		 *
+		 * \param	text, the char
+		 *
+		 * \return	true if text is wihtespace
+		 *
+		 * This is a function for finding if the char is wihtespace
+		*/
         static bool is_wihtespace(char text);
     protected:
 
