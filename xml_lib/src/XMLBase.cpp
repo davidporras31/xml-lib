@@ -1,10 +1,5 @@
 #include "../include/XMLBase.h"
 
-#ifdef DEBUG
-    #define PRINT(text) cout << text
-#else
-    #define PRINT(text) //
-#endif // DEBUG
 
 
 XMLBase::XMLBase()
@@ -26,45 +21,37 @@ XMLBase::~XMLBase()
     //dtor
 }
 
-XMLBase XMLBase::operator=(XMLRoot t)
-{
-    this->set_parent(t.get_parent());
-    this->set_tag_name(t.get_tag_name());
-    this->set_text(t.get_text());
-
-    for(int i = 0; i<=t.length_attribut()-1 ;i++)
-    {
-        this->add_attribut(t.get_attribut(i));
-    }
-    for(int i = 0; i<=t.length_value()-1 ;i++)
-    {
-        this->add_value(t.get_value(i));
-    }
-
-    for(int i = 0; i<=t.length_child()-1 ;i++)
-    {
-        this->add_child(* t.get_child(i));
-    }
-    return *this;
-}
-
 void XMLBase::load_xml_file(string file)
 {
-    int n = file.length();                      //convert string to char
-    char char_array[n + 1];
-    strcpy(char_array, file.c_str());
-
-    FILE* load_xml = NULL;                      //ouverture fichier
-    load_xml = fopen(char_array,"r");
-    rewind(load_xml);
-
-    char text;
-    while(text != '\n')                                 //on passe une linge
+	#ifdef Use_Watchdogs
+	unsigned int sleeping_time = this->timeout /8;
+	this->curent_timeout = 0;
+	std::thread load_thread(&XMLBase::Watchdogs_load_xml_file, this, file);
+	this->job_finich = false;
+	while(!this->job_finich)
     {
-        fread(&text,1,1,load_xml);
+        if(this->curent_timeout > this->timeout)
+        {
+            throw XMLBase_load_Exception();
+        }
+        std::this_thread::sleep_for(std::chrono::milliseconds(sleeping_time));
+        this->curent_timeout += sleeping_time;
+    }
+	load_thread.join();
+}
+void XMLBase::Watchdogs_load_xml_file(string file)
+{
+	#endif
+
+	ifstream xml_file(file);
+
+    char text = ' ';
+    while(text != '\n')                                 //add get encoding
+    {
+		xml_file.get(text);
     }
 
-    //var de lecture
+    //var use for reading
     XMLRoot * position = this;
 
     bool balise = false;
@@ -75,14 +62,18 @@ void XMLBase::load_xml_file(string file)
     bool slash = false;
     bool chevron_open = false;
 
-    while(fread(&text,1,1,load_xml) ==1)                //lecture fichier + mapage xml
+    while(xml_file.get(text))                //reading file + mapping xml
     {
         returnRuntime:
+
+        #ifdef Use_Watchdogs
+            this->curent_timeout = 0;
+        #endif // Use_Watchdogs
         if(position==0x0)
         {
             break;
         }
-        PRINT(text);
+
         //condition
         if (chevron_open)
         {
@@ -97,10 +88,9 @@ void XMLBase::load_xml_file(string file)
                 balise = false;
                 while(text!='>')
                 {
-                    fread(&text,1,1,load_xml);
-                    PRINT(text);
+					xml_file.get(text);
                 }
-                fread(&text,1,1,load_xml);
+				xml_file.get(text);
                 goto returnRuntime;
             }
             else
@@ -190,82 +180,130 @@ void XMLBase::load_xml_file(string file)
             }
         }
     }
-    fclose(load_xml);
+    xml_file.close();
+    this->for_each(this->precleanup,(void *)this);
+    #ifdef Use_Watchdogs
+        this->job_finich = true;
+    #endif // Use_Watchdogs
 }
 
 void XMLBase::save_xml_file(string file) //work in progress
 {
+    #ifdef Use_Watchdogs
+	unsigned int sleeping_time = this->timeout /8;
+	this->curent_timeout = 0;
+    this->job_finich = false;
+	std::thread load_thread(&XMLBase::Watchdogs_save_xml_file, this, file);
+	while(!this->job_finich)
+    {
+        std::this_thread::sleep_for(std::chrono::milliseconds(sleeping_time));
+        this->curent_timeout += sleeping_time;
+        if(this->curent_timeout > this->timeout)
+        {
+            throw XMLBase_save_Exception();
+        }
+    }
+    load_thread.join();
+}
+void XMLBase::Watchdogs_save_xml_file(string file)
+{
+	#endif
     //write
-    ofstream result_file;                       //open file
-    result_file.open(file,ios::trunc);
-    result_file << "<?xml version=\"1.0\"?>" << endl;
+    output_file.open(file,ios::trunc);                       //open file
+    output_file << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" << endl;
 
-    XMLRoot * position = this;
-    XMLRoot * last = nullptr;
+    this->for_each(this->presave, this->postsave, this);
 
-    PRINT("saving"<<endl);
-    do{
-        if(last!=nullptr)
+    output_file.close();
+
+    #ifdef Use_Watchdogs
+        this->job_finich = true;
+    #endif // Use_Watchdogs
+}
+#ifdef Use_Watchdogs
+void XMLBase::set_timeout(unsigned int timeout)
+{
+    this->timeout = timeout;
+}
+#endif // Use_Watchdogs
+
+void XMLBase::presave(XMLRoot* root,void * args)
+{
+    #ifdef Use_Watchdogs
+        ((XMLBase*)args)->curent_timeout = 0;
+    #endif // Use_Watchdogs
+    ((XMLBase*)args)->output_file << '<' << root->get_tag_name();
+    if(root->length_attribut() != 0)
+    {
+        for(size_t i=0 ; i<root->length_attribut() && i<root->length_value() ; i++)
         {
-            if(last->length_child() != 0 || last->length_text_without_wihtespace() != 0)
+            ((XMLBase*)args)->output_file << ' ' << root->get_attribut(i) << '=' << '\"' << root->get_value(i) << '\"';
+        }
+    }
+    if(root->length_child() == 0 && root->length_text_without_wihtespace() == 0)
+    {
+        ((XMLBase*)args)->output_file << "/>" << endl;
+    }
+    else
+    {
+        ((XMLBase*)args)->output_file << '>'<< endl;
+        if(root->length_text_without_wihtespace() != 0)
+        {
+            ((XMLBase*)args)->output_file << root->get_text() << endl;
+        }
+    }
+
+}
+void XMLBase::postsave(XMLRoot* root,void * args)
+{
+    #ifdef Use_Watchdogs
+        ((XMLBase*)args)->curent_timeout = 0;
+    #endif // Use_Watchdogs
+    if(root->length_child() == 0 && root->length_text_without_wihtespace() == 0)
+    {
+
+    }
+    else
+    {
+        ((XMLBase*)args)->output_file << "</" << root->get_tag_name() << ">" << endl;
+    }
+}
+
+void XMLBase::precleanup(XMLRoot* root,void * args)
+{
+    #ifdef Use_Watchdogs
+        ((XMLBase*)args)->curent_timeout = 0;
+    #endif // Use_Watchdogs
+    if(root->length_text() != 0)
+    {
+        string clean_text = root->get_text();
+        //cleaning text
+        size_t i = 0;
+        if(clean_text.size() != 0)
+        {
+            while(is_wihtespace(clean_text[i]))
             {
-                result_file << "</" << last->get_tag_name() << '>' << endl;
+                if(clean_text.size() <= i)
+                    break;
+                i++;
             }
+            clean_text.erase(clean_text.begin(),clean_text.begin()+i);
         }
-        PRINT(position<<endl);
-        result_file << '<' << position->get_tag_name();
-
-        for(int i=0 ; i<position->length_attribut() ; i++)
+        i = clean_text.size();
+        if(clean_text.size() != 0)
         {
-            result_file << ' ' << position->get_attribut(i) << '=' << '\"' << position->get_value(i) << '\"';
+            while(is_wihtespace(clean_text[i]))
+            {
+                if(0 > i)
+                    break;
+                i--;
+            }
+            clean_text.erase(clean_text.begin()+i+1,clean_text.end());
         }
-
-        if(position->length_child() == 0 && position->length_text_without_wihtespace() == 0)
-        {
-            result_file << "/>" << endl;
-        }
-        else
-        {
-            result_file << '>'<< endl;
-        }
-        if(position->length_text_without_wihtespace() != 0)
-        {
-            result_file << position->get_text();
-        }
-        if(position->length_child() != 0)
-        {
-            position = position->get_child(0);
-        }
-        else
-        {
-            bool loop = false;
-            do{
-                last = position;
-                position = position->get_parent();
-                if(position != nullptr)
-                {
-                    int i = 0;
-                    while(position->get_child(i) != last)
-                    {
-                        i=i+1;
-                    }
-                    if(position->length_child()-1 != i)
-                    {
-                        position = position->get_child(i+1);
-                    }
-                    else
-                    {
-                        if(position->get_parent()!=nullptr)
-                        {
-                            loop = true;
-                        }
-                    }
-                }
-            }while(loop);
-        }
-    }while(position->get_parent() != nullptr);
-    result_file << "</" << this->get_tag_name() << ">";
-    PRINT("end");
-    result_file.close();
-    return;
+        root->set_text(clean_text);
+    }
+    else
+    {
+        root->set_text("");
+    }
 }
