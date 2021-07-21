@@ -22,7 +22,7 @@ using namespace std;
  *
  * This is a function search the same atribut name of keyword and return place of atribut in search_XML.
 */
-int Search_by_atribut(XMLRoot * search_XML,string keyword);
+size_t Search_by_atribut(XMLRoot * search_XML,string keyword);
 /** \brief This is a function search tag by name
  *
  * \param	search_XML one XMLRoot

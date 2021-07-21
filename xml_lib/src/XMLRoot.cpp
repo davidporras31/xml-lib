@@ -144,9 +144,9 @@ void XMLRoot::for_each(function<void(XMLRoot *,void *)> prefunc, function<void(X
 
 bool XMLRoot::is_wihtespace(char text)
 {
-    bool test = text== '\t' || text== '\n' || text== '\r' || text== '\a'
-           || text== '\b' || text== '\f' || text== '\v' || text== '\0'
-           || text== '\e' || text== ' ';
+    bool test = text== '\a' || text== '\b' || text== '\t' || text== '\n'
+			|| text== '\v' || text== '\f' || text== '\r' || text== '\0'
+			|| text== '\e' || text== ' ';
     return test;
 }
 
