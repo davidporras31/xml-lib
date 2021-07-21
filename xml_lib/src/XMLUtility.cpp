@@ -1,7 +1,7 @@
 
 #include "../include/XMLUtility.h"
 
-int Search_by_atribut(XMLRoot * search_XML,string keyword)
+size_t Search_by_atribut(XMLRoot * search_XML,string keyword)
 {
     for(size_t i = 0; i < search_XML->length_attribut(); i++)
     {
