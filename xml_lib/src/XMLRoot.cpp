@@ -146,7 +146,7 @@ bool XMLRoot::is_wihtespace(char text)
 {
     bool test = text== '\a' || text== '\b' || text== '\t' || text== '\n'
 			|| text== '\v' || text== '\f' || text== '\r' || text== '\0'
-			|| text== '\e' || text== ' ';
+			|| text== ' ';
     return test;
 }
 
