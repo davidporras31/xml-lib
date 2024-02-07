@@ -144,9 +144,15 @@ void XMLRoot::for_each(function<void(XMLRoot *,void *)> prefunc, function<void(X
 
 bool XMLRoot::is_wihtespace(char text)
 {
+    #ifndef _MSC_BUILD
+    bool test = text== '\a' || text== '\b' || text== '\t' || text== '\n'
+			|| text== '\v' || text== '\f' || text== '\r' || text== '\0'
+			|| text== '\e' || text== ' ';
+    #else
     bool test = text== '\a' || text== '\b' || text== '\t' || text== '\n'
 			|| text== '\v' || text== '\f' || text== '\r' || text== '\0'
 			|| text== ' ';
+    #endif
     return test;
 }
 
