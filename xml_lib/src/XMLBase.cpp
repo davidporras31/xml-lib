@@ -23,12 +23,12 @@ XMLBase::~XMLBase()
 
 void XMLBase::load_xml_file(string file)
 {
-	#ifdef Use_Watchdogs
-	unsigned int sleeping_time = this->timeout /8;
-	this->curent_timeout = 0;
-	std::thread load_thread(&XMLBase::Watchdogs_load_xml_file, this, file);
-	this->job_finich = false;
-	while(!this->job_finich)
+#ifdef Use_Watchdogs
+    unsigned int sleeping_time = this->timeout /8;
+    this->curent_timeout = 0;
+    std::thread load_thread(&XMLBase::Watchdogs_load_xml_file, this, file);
+    this->job_finich = false;
+    while(!this->job_finich)
     {
         if(this->curent_timeout > this->timeout)
         {
@@ -37,18 +37,19 @@ void XMLBase::load_xml_file(string file)
         std::this_thread::sleep_for(std::chrono::milliseconds(sleeping_time));
         this->curent_timeout += sleeping_time;
     }
-	load_thread.join();
+    load_thread.join();
 }
 void XMLBase::Watchdogs_load_xml_file(string file)
 {
-	#endif
+#endif
 
-	ifstream xml_file(file);
-
+    ifstream xml_file(file);
     char text = ' ';
+    char last_text = ' ';
+
     while(text != '\n')                                 //add get encoding
     {
-		xml_file.get(text);
+        xml_file.get(text);
     }
 
     //var use for reading
@@ -66,10 +67,10 @@ void XMLBase::Watchdogs_load_xml_file(string file)
     {
         returnRuntime:
 
-        #ifdef Use_Watchdogs
+#ifdef Use_Watchdogs
             this->curent_timeout = 0;
-        #endif // Use_Watchdogs
-        if(position==0x0)
+#endif // Use_Watchdogs
+        if(position==NULL)
         {
             break;
         }
@@ -88,9 +89,10 @@ void XMLBase::Watchdogs_load_xml_file(string file)
                 balise = false;
                 while(text!='>')
                 {
-					xml_file.get(text);
+                    xml_file.get(text);
                 }
-				xml_file.get(text);
+                xml_file.get(text);
+                last_text = text;
                 goto returnRuntime;
             }
             else
@@ -102,8 +104,7 @@ void XMLBase::Watchdogs_load_xml_file(string file)
                 }
                 else
                 {
-                    XMLRoot * tmpxml;
-                    tmpxml = new XMLRoot();
+                    XMLRoot * tmpxml = new XMLRoot();
                     position->add_child(*tmpxml);
                     (position->get_child())->set_parent(position);
                     position = position->get_child();
@@ -155,11 +156,14 @@ void XMLBase::Watchdogs_load_xml_file(string file)
                     atribue_balise = true;
                     position->add_attribut("");
                 }
-                if(value_balise)
+                if(value_balise && last_text == '\"')
                 {
                     value_balise = false;
                     atribue_balise = true;
                     position->add_attribut("");
+                }else if(value_balise && last_text != '\"')
+                {
+                    position->set_value(position->get_value(position->length_value()-1)+text,position->length_value()-1);
                 }
             }
             else
@@ -176,25 +180,26 @@ void XMLBase::Watchdogs_load_xml_file(string file)
         {
             if(text!='<'&&text!='>')
             {
-                position->set_text(position->get_text()+text);  //a ajouté gestion tab avec nb_space_for_tab
+                position->set_text(position->get_text()+text);  //a ajoutï¿½ gestion tab avec nb_space_for_tab
             }
         }
+        last_text = text;
     }
     xml_file.close();
     this->for_each(this->precleanup,(void *)this);
-    #ifdef Use_Watchdogs
+#ifdef Use_Watchdogs
         this->job_finich = true;
-    #endif // Use_Watchdogs
+#endif // Use_Watchdogs
 }
 
 void XMLBase::save_xml_file(string file) //work in progress
 {
     #ifdef Use_Watchdogs
-	unsigned int sleeping_time = this->timeout /8;
-	this->curent_timeout = 0;
+    unsigned int sleeping_time = this->timeout /8;
+    this->curent_timeout = 0;
     this->job_finich = false;
-	std::thread load_thread(&XMLBase::Watchdogs_save_xml_file, this, file);
-	while(!this->job_finich)
+    std::thread load_thread(&XMLBase::Watchdogs_save_xml_file, this, file);
+    while(!this->job_finich)
     {
         std::this_thread::sleep_for(std::chrono::milliseconds(sleeping_time));
         this->curent_timeout += sleeping_time;
@@ -207,7 +212,7 @@ void XMLBase::save_xml_file(string file) //work in progress
 }
 void XMLBase::Watchdogs_save_xml_file(string file)
 {
-	#endif
+    #endif
     //write
     output_file.open(file,ios::trunc);                       //open file
     output_file << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" << endl;
