@@ -11,8 +11,6 @@
 #include <vector>
 #include <functional>
 
-using namespace std;
-
 class XMLRoot
 {
     public:
@@ -25,14 +23,14 @@ class XMLRoot
 		 *
 		 * This is a function for modify tag name
 		*/
-        void set_tag_name(string el);
+        void set_tag_name(std::string el);
         /** \brief This is a function for geting tag name
 		 *
 		 * \return	the tag name
 		 *
 		 * This is a function for geting tag name
 		*/
-        string get_tag_name();
+        std::string get_tag_name();
 
         /** \brief This is a function for modify text in balise
 		 *
@@ -40,14 +38,14 @@ class XMLRoot
 		 *
 		 * This is a function for modify text in balise
 		*/
-        void set_text(string tx);
+        void set_text(std::string tx);
         /** \brief This is a function for geting text in balise
 		 *
 		 * \return	the text
 		 *
 		 * This is a function for geting text in balise
 		*/
-        string get_text();
+        std::string get_text();
         /** \brief This is a function for geting length of text in balise
 		 *
 		 * \return	the length of text
@@ -70,7 +68,7 @@ class XMLRoot
 		 *
 		 * This is a function for add attribut name in balise at last
 		*/
-        void add_attribut(string att);
+        void add_attribut(std::string att);
         /** \brief This is a function for modify attribut name in balise
 		 *
 		 * \param	att, the new attribut name
@@ -78,7 +76,7 @@ class XMLRoot
 		 *
 		 * This is a function for modify attribut name in balise
 		*/
-        void set_attribut(string att,size_t id);
+        void set_attribut(std::string att,size_t id);
         /** \brief This is a function for geting attribut name in balise
 		 *
 		 * \param	id, the place of attribut
@@ -87,7 +85,7 @@ class XMLRoot
 		 *
 		 * This is a function for geting attribut name in balise
 		*/
-        string get_attribut(size_t id);
+        std::string get_attribut(size_t id);
         /** \brief This is a function for geting length of attribut name in balise
 		 *
 		 * \return	the length of attribut name
@@ -102,7 +100,7 @@ class XMLRoot
 		 *
 		 * This is a function for add attribut value in balise at last
 		*/
-        void add_value(string val);
+        void add_value(std::string val);
         /** \brief This is a function for modify attribut value in balise
 		 *
 		 * \param	val, the new attribut value
@@ -110,7 +108,7 @@ class XMLRoot
 		 *
 		 * This is a function for modify attribut value in balise
 		*/
-        void set_value(string val,size_t id);
+        void set_value(std::string val,size_t id);
         /** \brief This is a function for geting attribut value in balise
 		 *
 		 * \param	id, the place of attribut
@@ -119,7 +117,7 @@ class XMLRoot
 		 *
 		 * This is a function for geting attribut value in balise
 		*/
-        string get_value(size_t id);
+        std::string get_value(size_t id);
         /** \brief This is a function for geting length of attribut value in balise
 		 *
 		 * \return	the length of attribut value
@@ -188,7 +186,7 @@ class XMLRoot
 		 *
 		 * This is a function for invoke function on all child of the current instance and on the current instance
 		*/
-        void for_each(function<void(XMLRoot *,void *)> prefunc, void * args = NULL);
+        void for_each(std::function<void(XMLRoot *,void *)> prefunc, void * args = NULL);
         /** \brief This is a function for invoke function on all child of the current instance and on the current instance
 		 *
 		 * \param	prefunc, the function to invoke, the first parameter is the current instance executed, the final parameter is the data of args parameter
@@ -197,7 +195,7 @@ class XMLRoot
 		 *
 		 * This is a function for invoke function on all child of the current instance and on the current instance
 		*/
-        void for_each(function<void(XMLRoot *,void *)> prefunc, function<void(XMLRoot *,void *)> postfunc, void * args = NULL);
+        void for_each(std::function<void(XMLRoot *,void *)> prefunc, std::function<void(XMLRoot *,void *)> postfunc, void * args = NULL);
         /** \brief This is a function for finding if the char is wihtespace
 		 *
 		 * \param	text, the char
@@ -212,12 +210,12 @@ class XMLRoot
     private:
         static void precopy(XMLRoot* root,void * args);
 
-        vector<XMLRoot> child;
+        std::vector<XMLRoot> child;
         XMLRoot * parent;
-        string tag_name;
-        string text;
-        vector<string> attribut;
-        vector<string> value;
+        std::string tag_name;
+        std::string text;
+        std::vector<std::string> attribut;
+        std::vector<std::string> value;
 
 };
 

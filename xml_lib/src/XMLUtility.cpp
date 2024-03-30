@@ -1,7 +1,7 @@
 
 #include "../include/XMLUtility.h"
 
-size_t Search_by_atribut(XMLRoot * search_XML,string keyword)
+size_t Search_by_atribut(XMLRoot * search_XML,std::string keyword)
 {
     for(size_t i = 0; i < search_XML->length_attribut(); i++)
     {
@@ -12,7 +12,7 @@ size_t Search_by_atribut(XMLRoot * search_XML,string keyword)
     }
     return -1;
 }
-bool Search_by_element(XMLRoot * search_XML,vector<XMLRoot *> &return_XML,string keyword)
+bool Search_by_element(XMLRoot * search_XML,std::vector<XMLRoot *> &return_XML,std::string keyword)
 {
     bool return_value = false;
     for(size_t i = 0; i < search_XML->length_child(); i++)

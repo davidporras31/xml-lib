@@ -14,19 +14,17 @@
 
 #ifdef Use_Watchdogs
 	#include <thread>
-    #include <chrono>
-    #include <exception>
+  #include <chrono>
+  #include <exception>
 #endif
 
 #include "XMLRoot.h"
-
-using namespace std;
 
 class XMLBase : public XMLRoot
 {
     public:
         XMLBase();
-        XMLBase(string file);
+        XMLBase(std::string file);
         ~XMLBase();
         /** \brief This is a method for load XML file from path.
          *
@@ -34,14 +32,14 @@ class XMLBase : public XMLRoot
          *
          * This is a method for load XML file from a path specify in the file parameter.
         */
-        void load_xml_file(string file);
+        void load_xml_file(std::string file);
         /** \brief This is a method for save XML file from path.
          *
          * \param	file The path of the return file.
          *
          * This is a method for save XML file in a path specify in the file parameter.
         */
-        void save_xml_file(string file);
+        void save_xml_file(std::string file);
 
 		#ifdef Use_Watchdogs
             /** \brief Change the timeout on load and save watchdogs.
@@ -59,24 +57,24 @@ class XMLBase : public XMLRoot
         static void presave(XMLRoot* root,void * args);
         static void postsave(XMLRoot* root,void * args);
         static void precleanup(XMLRoot* root,void * args);
-        ofstream output_file;
+        std::ofstream output_file;
 		#ifdef Use_Watchdogs
             bool job_finich;
 			unsigned int timeout;
 			unsigned int curent_timeout;
-			void Watchdogs_load_xml_file(string file);
-			void Watchdogs_save_xml_file(string file);
+			void Watchdogs_load_xml_file(std::string file);
+			void Watchdogs_save_xml_file(std::string file);
 		#endif
 };
 #ifdef Use_Watchdogs
-class XMLBase_load_Exception: public exception
+class XMLBase_load_Exception: public std::exception
 {
     virtual const char* what() const throw()
   {
     return "timeout on parsing XML file";
   }
 };
-class XMLBase_save_Exception: public exception
+class XMLBase_save_Exception: public std::exception
 {
     virtual const char* what() const throw()
   {

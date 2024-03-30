@@ -27,20 +27,20 @@ XMLRoot::~XMLRoot()
 {
     //dtor
 }
-void XMLRoot::set_tag_name(string el)
+void XMLRoot::set_tag_name(std::string el)
 {
     this->tag_name = el;
 }
-string XMLRoot::get_tag_name()
+std::string XMLRoot::get_tag_name()
 {
     return this->tag_name;
 }
 
-void XMLRoot::set_text(string tx)
+void XMLRoot::set_text(std::string tx)
 {
     this->text = tx;
 }
-string XMLRoot::get_text()
+std::string XMLRoot::get_text()
 {
     return this->text;
 }
@@ -61,15 +61,15 @@ size_t XMLRoot::length_text_without_wihtespace()
     return nb;
 }
 
-void XMLRoot::add_attribut(string att)
+void XMLRoot::add_attribut(std::string att)
 {
     this->attribut.push_back(att);
 }
-void XMLRoot::set_attribut(string att,size_t id)
+void XMLRoot::set_attribut(std::string att,size_t id)
 {
     this->attribut.at(id) = att;
 }
-string XMLRoot::get_attribut(size_t id)
+std::string XMLRoot::get_attribut(size_t id)
 {
     return this->attribut.at(id);
 }
@@ -78,15 +78,15 @@ size_t XMLRoot::length_attribut()
     return this->attribut.size();
 }
 
-void XMLRoot::add_value(string val)
+void XMLRoot::add_value(std::string val)
 {
     this->value.push_back(val);
 }
-void XMLRoot::set_value(string val,size_t id)
+void XMLRoot::set_value(std::string val,size_t id)
 {
     this->value.at(id) = val;
 }
-string XMLRoot::get_value(size_t id)
+std::string XMLRoot::get_value(size_t id)
 {
     return this->value.at(id);
 }
@@ -124,7 +124,7 @@ size_t XMLRoot::length_child()
 {
     return this->child.size();
 }
-void XMLRoot::for_each(function<void(XMLRoot *,void *)> prefunc, void * args)
+void XMLRoot::for_each(std::function<void(XMLRoot *,void *)> prefunc, void * args)
 {
     prefunc(this, args);
     for(size_t i=0; i<this->length_child(); i++)
@@ -132,7 +132,7 @@ void XMLRoot::for_each(function<void(XMLRoot *,void *)> prefunc, void * args)
         this->get_child(i)->for_each(prefunc, args);
     }
 }
-void XMLRoot::for_each(function<void(XMLRoot *,void *)> prefunc, function<void(XMLRoot *,void *)> postfunc, void * args)
+void XMLRoot::for_each(std::function<void(XMLRoot *,void *)> prefunc, std::function<void(XMLRoot *,void *)> postfunc, void * args)
 {
     prefunc(this, args);
     for(size_t i=0; i<this->length_child(); i++)

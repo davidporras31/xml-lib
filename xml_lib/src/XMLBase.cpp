@@ -9,7 +9,7 @@ XMLBase::XMLBase()
 
 }
 
-XMLBase::XMLBase(string file)
+XMLBase::XMLBase(std::string file)
     :XMLRoot()
 {
     //ctor
@@ -21,7 +21,7 @@ XMLBase::~XMLBase()
     //dtor
 }
 
-void XMLBase::load_xml_file(string file)
+void XMLBase::load_xml_file(std::string file)
 {
 #ifdef Use_Watchdogs
     unsigned int sleeping_time = this->timeout /8;
@@ -39,11 +39,11 @@ void XMLBase::load_xml_file(string file)
     }
     load_thread.join();
 }
-void XMLBase::Watchdogs_load_xml_file(string file)
+void XMLBase::Watchdogs_load_xml_file(std::string file)
 {
 #endif
 
-    ifstream xml_file(file);
+    std::ifstream xml_file(file);
     char text = ' ';
     char last_text = ' ';
 
@@ -125,7 +125,7 @@ void XMLBase::Watchdogs_load_xml_file(string file)
             balise = false;
             if (slash)                      //if is a orphan tag
             {
-                string error = position->get_value(position->length_value()-1);
+                std::string error = position->get_value(position->length_value()-1);
                 error.erase(error.end()-1);
                 position->set_value(error,position->length_value()-1);
                 position = position->get_parent();
@@ -192,7 +192,7 @@ void XMLBase::Watchdogs_load_xml_file(string file)
 #endif // Use_Watchdogs
 }
 
-void XMLBase::save_xml_file(string file) //work in progress
+void XMLBase::save_xml_file(std::string file) //work in progress
 {
     #ifdef Use_Watchdogs
     unsigned int sleeping_time = this->timeout /8;
@@ -210,12 +210,12 @@ void XMLBase::save_xml_file(string file) //work in progress
     }
     load_thread.join();
 }
-void XMLBase::Watchdogs_save_xml_file(string file)
+void XMLBase::Watchdogs_save_xml_file(std::string file)
 {
     #endif
     //write
-    output_file.open(file,ios::trunc);                       //open file
-    output_file << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" << endl;
+    output_file.open(file,std::ios::trunc);                       //open file
+    output_file << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" << std::endl;
 
     this->for_each(this->presave, this->postsave, this);
 
@@ -247,14 +247,14 @@ void XMLBase::presave(XMLRoot* root,void * args)
     }
     if(root->length_child() == 0 && root->length_text_without_wihtespace() == 0)
     {
-        ((XMLBase*)args)->output_file << "/>" << endl;
+        ((XMLBase*)args)->output_file << "/>" << std::endl;
     }
     else
     {
-        ((XMLBase*)args)->output_file << '>'<< endl;
+        ((XMLBase*)args)->output_file << '>'<< std::endl;
         if(root->length_text_without_wihtespace() != 0)
         {
-            ((XMLBase*)args)->output_file << root->get_text() << endl;
+            ((XMLBase*)args)->output_file << root->get_text() << std::endl;
         }
     }
 
@@ -270,7 +270,7 @@ void XMLBase::postsave(XMLRoot* root,void * args)
     }
     else
     {
-        ((XMLBase*)args)->output_file << "</" << root->get_tag_name() << ">" << endl;
+        ((XMLBase*)args)->output_file << "</" << root->get_tag_name() << ">" << std::endl;
     }
 }
 
@@ -281,7 +281,7 @@ void XMLBase::precleanup(XMLRoot* root,void * args)
     #endif // Use_Watchdogs
     if(root->length_text() != 0)
     {
-        string clean_text = root->get_text();
+        std::string clean_text = root->get_text();
         //cleaning text
         size_t i = 0;
         if(clean_text.size() != 0)
